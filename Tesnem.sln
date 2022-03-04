@@ -12,13 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{46125F17-51A6-421D-A7A3-2E1BBB226ADC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{6CCB92F7-E097-4A1E-B279-805D52387505}"
-	ProjectSection(SolutionItems) = preProject
-		cicd.yml = cicd.yml
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Domain", "Tesnem.Api.Domain\Tesnem.Api.Domain.csproj", "{3A79C261-8415-4FF7-9B82-26F95E70C867}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Data", "Tesnem.Api.Data\Tesnem.Api.Data.csproj", "{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}"
@@ -50,10 +43,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{46125F17-51A6-421D-A7A3-2E1BBB226ADC} = {107C8F99-E5D6-42EB-9FCD-87094ADE8609}
-		{6CCB92F7-E097-4A1E-B279-805D52387505} = {46125F17-51A6-421D-A7A3-2E1BBB226ADC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24E05F25-01B3-4C85-A9FF-3D607DFF56EB}
