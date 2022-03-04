@@ -11,6 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{46125F17-51A6-421D-A7A3-2E1BBB226ADC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{6CCB92F7-E097-4A1E-B279-805D52387505}"
+	ProjectSection(SolutionItems) = preProject
+		cicd.yml = cicd.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Domain", "Tesnem.Api.Domain\Tesnem.Api.Domain.csproj", "{3A79C261-8415-4FF7-9B82-26F95E70C867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Data", "Tesnem.Api.Data\Tesnem.Api.Data.csproj", "{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Services", "Tesnem.Api.Services\Tesnem.Api.Services.csproj", "{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +34,24 @@ Global
 		{16DCD5B1-F109-4FD5-900D-FBEA52C30EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16DCD5B1-F109-4FD5-900D-FBEA52C30EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16DCD5B1-F109-4FD5-900D-FBEA52C30EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A79C261-8415-4FF7-9B82-26F95E70C867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A79C261-8415-4FF7-9B82-26F95E70C867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A79C261-8415-4FF7-9B82-26F95E70C867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A79C261-8415-4FF7-9B82-26F95E70C867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CCB92F7-E097-4A1E-B279-805D52387505} = {46125F17-51A6-421D-A7A3-2E1BBB226ADC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {24E05F25-01B3-4C85-A9FF-3D607DFF56EB}
