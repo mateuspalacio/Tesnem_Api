@@ -3,7 +3,7 @@
 ## Team
 
 - Front-End
-	- Mateus Lope
+	- Mateus Lopes
 	- Iaggo Quezado
 	- Divaldo
 - Back-End
