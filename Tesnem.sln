@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{107C8F99-E5D6-42EB-9FCD-87094ADE8609}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\cicd.yml = .github\workflows\cicd.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -18,11 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		cicd.yml = cicd.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Domain", "Tesnem.Api.Domain\Tesnem.Api.Domain.csproj", "{3A79C261-8415-4FF7-9B82-26F95E70C867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Domain", "Tesnem.Api.Domain\Tesnem.Api.Domain.csproj", "{3A79C261-8415-4FF7-9B82-26F95E70C867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Data", "Tesnem.Api.Data\Tesnem.Api.Data.csproj", "{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Data", "Tesnem.Api.Data\Tesnem.Api.Data.csproj", "{C1C790EA-F05D-4EB7-9B8B-663290A1ADB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api.Services", "Tesnem.Api.Services\Tesnem.Api.Services.csproj", "{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Services", "Tesnem.Api.Services\Tesnem.Api.Services.csproj", "{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +52,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{46125F17-51A6-421D-A7A3-2E1BBB226ADC} = {107C8F99-E5D6-42EB-9FCD-87094ADE8609}
 		{6CCB92F7-E097-4A1E-B279-805D52387505} = {46125F17-51A6-421D-A7A3-2E1BBB226ADC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
