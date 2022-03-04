@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.Api", "Tesnem.Api\Tesnem.Api.csproj", "{16DCD5B1-F109-4FD5-900D-FBEA52C30EFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api", "Tesnem.Api\Tesnem.Api.csproj", "{16DCD5B1-F109-4FD5-900D-FBEA52C30EFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{107C8F99-E5D6-42EB-9FCD-87094ADE8609}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
