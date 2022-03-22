@@ -7,9 +7,7 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.DTO
 {
-    public class ProfessorDto
+    public class ProfessorDto : PersonDto
     {
-        public string Name { get; set; }
-        public PersonalData Data { get; set; }
     }
 }

@@ -15,6 +15,9 @@ namespace Tesnem.Api.Domain.Mapper
         {
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Professor, ProfessorDto>().ReverseMap();
+            CreateMap<PersonalData, PersonalDataDto>().ReverseMap();
+            CreateMap<Person, PersonDto>().ReverseMap();
+            CreateMap<ProgramMajor, MajorDto>().ReverseMap();
         }
     }
 }

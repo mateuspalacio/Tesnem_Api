@@ -11,8 +11,8 @@ namespace Tesnem.Api.Domain.Services
     public interface IProfessorService
     {
         Task<Professor> AddProfessor(ProfessorDto professor);
-        Task<Professor> UpdateProfessor(string id, ProfessorDto professor);
-        Task DeleteProfessor(string id);
-        Task<Professor> GetProfessorById(string id);
+        Task<Professor> UpdateProfessor(Guid id, ProfessorDto professor);
+        Task DeleteProfessor(Guid id);
+        Task<Professor> GetProfessorById(Guid id);
     }
 }

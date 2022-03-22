@@ -10,15 +10,10 @@ namespace Tesnem.Api.Domain.Models
     public class Person
     {
         [Key]
-        public string Id { get
-            {
-                return Registration;
-            } set {
-                Registration = DateTime.Now.Date.ToString() + DateTime.Now.Millisecond + new Random().Next(1000000, 9999999) + DateTime.Now.AddMilliseconds(new Random().Next(100));
-            } }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public PersonalData Data { get; set; }
 
-        private string Registration;
+        private string Registration = DateTime.Now.Date.ToString() + DateTime.Now.Millisecond + new Random().Next(1000000, 9999999) + DateTime.Now.AddMilliseconds(new Random().Next(100));
     }
 }

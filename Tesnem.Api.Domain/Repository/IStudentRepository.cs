@@ -10,8 +10,8 @@ namespace Tesnem.Api.Domain.Repository
     public interface IStudentRepository
     {
         Task<Student> AddStudent(Student student);
-        Task<Student> UpdateStudent(string id, Student student);
-        Task DeleteStudent(string id);
-        Task<Student> GetStudentById(string id);
+        Task<Student> UpdateStudent(Guid id, Student student);
+        Task DeleteStudent(Guid id);
+        Task<Student> GetStudentById(Guid id);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tesnem.Api.Data.Migrations
 {
-    public partial class first : Migration
+    public partial class redone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,13 +52,12 @@ namespace Tesnem.Api.Data.Migrations
                 name: "Person",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConclusionDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    ConclusionDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     ProgramMajorId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
                 },
                 constraints: table =>
@@ -78,8 +77,7 @@ namespace Tesnem.Api.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProfessorId = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfessorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Course_Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Days = table.Column<int>(type: "int", nullable: false)
                 },
@@ -96,7 +94,8 @@ namespace Tesnem.Api.Data.Migrations
                         name: "FK_Classes_Person_ProfessorId",
                         column: x => x.ProfessorId,
                         principalTable: "Person",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -104,8 +103,7 @@ namespace Tesnem.Api.Data.Migrations
                 name: "CourseProfessor",
                 columns: table => new
                 {
-                    ProfessorsId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfessorsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     TeacherOfCoursesId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
@@ -131,8 +129,7 @@ namespace Tesnem.Api.Data.Migrations
                 columns: table => new
                 {
                     CoursesCurrentId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    StudentsId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    StudentsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -156,14 +153,14 @@ namespace Tesnem.Api.Data.Migrations
                 name: "PersonalData",
                 columns: table => new
                 {
-                    PersonId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PersonId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     AddressStreet = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AddressHouseNumber = table.Column<int>(type: "int", nullable: false),
                     AdditionalAddress = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Phone = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     City = table.Column<string>(type: "longtext", nullable: false)
@@ -178,7 +175,7 @@ namespace Tesnem.Api.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonalData", x => x.PersonId);
+                    table.PrimaryKey("PK_PersonalData", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PersonalData_Person_PersonId",
                         column: x => x.PersonId,
@@ -193,8 +190,7 @@ namespace Tesnem.Api.Data.Migrations
                 columns: table => new
                 {
                     ClassesId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    StudentsId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    StudentsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -221,8 +217,7 @@ namespace Tesnem.Api.Data.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Grade = table.Column<double>(type: "double", nullable: false),
                     Av = table.Column<int>(type: "int", nullable: false),
-                    Student_Id = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Student_Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ClassId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CourseId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
                 },
@@ -282,6 +277,12 @@ namespace Tesnem.Api.Data.Migrations
                 name: "IX_Person_ProgramMajorId",
                 table: "Person",
                 column: "ProgramMajorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonalData_PersonId",
+                table: "PersonalData",
+                column: "PersonId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tests_ClassId",

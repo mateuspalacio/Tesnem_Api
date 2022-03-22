@@ -11,8 +11,8 @@ using Tesnem.Api.Data;
 namespace Tesnem.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220321134940_first")]
-    partial class first
+    [Migration("20220322174226_redone")]
+    partial class redone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,8 +26,8 @@ namespace Tesnem.Api.Data.Migrations
                     b.Property<Guid>("ClassesId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("StudentsId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("StudentsId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("ClassesId", "StudentsId");
 
@@ -38,8 +38,8 @@ namespace Tesnem.Api.Data.Migrations
 
             modelBuilder.Entity("CourseProfessor", b =>
                 {
-                    b.Property<string>("ProfessorsId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("ProfessorsId")
+                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("TeacherOfCoursesId")
                         .HasColumnType("char(36)");
@@ -56,8 +56,8 @@ namespace Tesnem.Api.Data.Migrations
                     b.Property<Guid>("CoursesCurrentId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("StudentsId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("StudentsId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("CoursesCurrentId", "StudentsId");
 
@@ -78,8 +78,8 @@ namespace Tesnem.Api.Data.Migrations
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProfessorId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("ProfessorId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -112,8 +112,9 @@ namespace Tesnem.Api.Data.Migrations
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Person", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -132,8 +133,9 @@ namespace Tesnem.Api.Data.Migrations
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.PersonalData", b =>
                 {
-                    b.Property<string>("PersonId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("AdditionalAddress")
                         .IsRequired()
@@ -146,8 +148,8 @@ namespace Tesnem.Api.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("CPF")
                         .IsRequired()
@@ -165,6 +167,9 @@ namespace Tesnem.Api.Data.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(11)
@@ -175,7 +180,10 @@ namespace Tesnem.Api.Data.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("varchar(2)");
 
-                    b.HasKey("PersonId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId")
+                        .IsUnique();
 
                     b.ToTable("PersonalData");
                 });
@@ -216,9 +224,8 @@ namespace Tesnem.Api.Data.Migrations
                     b.Property<double>("Grade")
                         .HasColumnType("double");
 
-                    b.Property<string>("Student_Id")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<Guid>("Student_Id")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -242,8 +249,8 @@ namespace Tesnem.Api.Data.Migrations
                 {
                     b.HasBaseType("Tesnem.Api.Domain.Models.Person");
 
-                    b.Property<DateOnly>("ConclusionDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ConclusionDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<Guid>("ProgramMajorId")
                         .HasColumnType("char(36)");
@@ -308,7 +315,9 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasOne("Tesnem.Api.Domain.Models.Professor", "Professor")
                         .WithMany("TeacherOfClasses")
-                        .HasForeignKey("ProfessorId");
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
 

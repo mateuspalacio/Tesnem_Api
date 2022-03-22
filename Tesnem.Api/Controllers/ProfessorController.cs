@@ -5,9 +5,9 @@ using Tesnem.Api.Domain.Services;
 
 namespace Tesnem.Api.Controllers
 {
+    [Route("[controller]/")]
     [ApiController]
-    [Route("[controller]")]
-    public class ProfessorController : Controller
+    public class ProfessorController : ControllerBase
     {
         private readonly IProfessorService _service;
         public ProfessorController(IProfessorService service)
@@ -23,21 +23,21 @@ namespace Tesnem.Api.Controllers
         }
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> UpdateProfessor([FromRoute] string id, [FromBody] ProfessorDto p)
+        public async Task<IActionResult> UpdateProfessor([FromRoute] Guid id, [FromBody] ProfessorDto p)
         {
             var resp = await _service.UpdateProfessor(id, p);
             return Ok(resp);
         }
         [HttpDelete]
         [Route("delete/{id}")]
-        public async Task<IActionResult> DeleteProfessor([FromRoute] string id)
+        public async Task<IActionResult> DeleteProfessor([FromRoute] Guid id)
         {
             await _service.DeleteProfessor(id);
             return NoContent();
         }
         [HttpGet]
         [Route("get/{id}")]
-        public async Task<IActionResult> GetProfessor([FromRoute] string id)
+        public async Task<IActionResult> GetProfessor([FromRoute] Guid id)
         {
             var resp = await _service.GetProfessorById(id);
             return Ok(resp);

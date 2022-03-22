@@ -11,8 +11,8 @@ namespace Tesnem.Api.Domain.Services
     public interface IStudentService
     {
         Task<Student> AddStudent(StudentDto student);
-        Task<Student> UpdateStudent(string id, StudentDto student);
-        Task DeleteStudent(string id);
-        Task<Student> GetStudentById(string id);
+        Task<Student> UpdateStudent(Guid id, StudentDto student);
+        Task DeleteStudent(Guid id);
+        Task<Student> GetStudentById(Guid id);
     }
 }

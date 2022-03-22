@@ -27,18 +27,18 @@ namespace Tesnem.Api.Services.Services
             return resp;
         }
 
-        public async Task DeleteProfessor(string id)
+        public async Task DeleteProfessor(Guid id)
         {
             await _rep.DeleteProfessor(id);
         }
 
-        public async Task<Professor> GetProfessorById(string id)
+        public async Task<Professor> GetProfessorById(Guid id)
         {
             var resp = await _rep.GetProfessorById(id);
             return resp;
         }
 
-        public async Task<Professor> UpdateProfessor(string id, ProfessorDto professor)
+        public async Task<Professor> UpdateProfessor(Guid id, ProfessorDto professor)
         {
             var prof = _mapper.Map<Professor>(professor);
             var resp = await _rep.UpdateProfessor(id, prof);

@@ -24,7 +24,7 @@ namespace Tesnem.Api.Data.Repository
             return resp.Entity;
         }
 
-        public async Task DeleteProfessor(string id)
+        public async Task DeleteProfessor(Guid id)
         {
             var delete = _appDbContext.Professors.FirstOrDefault(x => x.Id == id);
             if (delete != null)
@@ -34,13 +34,13 @@ namespace Tesnem.Api.Data.Repository
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task<Professor> GetProfessorById(string id)
+        public async Task<Professor> GetProfessorById(Guid id)
         {
             var prof = _appDbContext.Professors.FirstOrDefault(x => x.Id == id);
             return prof;
         }
 
-        public async Task<Professor> UpdateProfessor(string id, Professor professor)
+        public async Task<Professor> UpdateProfessor(Guid id, Professor professor)
         {
             var toUpdate = _appDbContext.Professors.FirstOrDefault(y => y.Id == id);
             if (toUpdate != null)

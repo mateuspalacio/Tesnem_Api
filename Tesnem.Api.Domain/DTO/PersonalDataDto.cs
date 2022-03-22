@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Tesnem.Api.Domain.Models
+namespace Tesnem.Api.Domain.DTO
 {
-    public class PersonalData
+    public class PersonalDataDto
     {
-        public Guid Id { get; set; }
-        [ForeignKey("Person")]
-        public Guid PersonId { get; set; }
-        [Required]
         public string AddressStreet { get; set; }
         [Required]
         public int AddressHouseNumber { get; set; }
@@ -31,9 +25,5 @@ namespace Tesnem.Api.Domain.Models
         public string Email { get; set; }
         [StringLength(11)]
         public string CPF { get; set; }
-        [JsonIgnore]
-        public DateTime EntryDate { get; set; } = DateTime.Now;
-        [JsonIgnore]
-        public Person Person { get; set; }
     }
 }

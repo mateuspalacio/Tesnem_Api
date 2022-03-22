@@ -15,7 +15,7 @@ namespace Tesnem.Api.Domain.Models
         [NotMapped]
         public List<Course> CoursesCompleted { get; set; }
         public List<Class> Classes { get; set; }
-        public DateOnly ConclusionDate { get; set; }
+        public DateTime ConclusionDate { get; set; }
         public ProgramMajor ProgramMajor { get; set; }
     }
 }

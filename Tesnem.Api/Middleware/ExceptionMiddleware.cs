@@ -24,6 +24,9 @@ namespace Tesnem.Api.Middleware
                     response.StatusCode = error.ErrorResponse.StatusCode;
                     context.Response.StatusCode = error.ErrorResponse.StatusCode;
                     await context.Response.WriteAsJsonAsync(response);
+                } else
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
 

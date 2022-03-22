@@ -10,8 +10,8 @@ namespace Tesnem.Api.Domain.Repository
     public interface IProfessorRepository
     {
         Task<Professor> AddProfessor(Professor professor);
-        Task<Professor> UpdateProfessor(string id, Professor professor);
-        Task DeleteProfessor(string id);
-        Task<Professor> GetProfessorById(string id);
+        Task<Professor> UpdateProfessor(Guid id, Professor professor);
+        Task DeleteProfessor(Guid id);
+        Task<Professor> GetProfessorById(Guid id);
     }
 }

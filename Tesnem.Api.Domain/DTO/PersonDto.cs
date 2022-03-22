@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.DTO
 {
-    public class StudentDto : PersonDto
+    public class PersonDto
     {
-        public MajorDto ProgramMajor { get; set; }
+        public string Name { get; set; }
+        public PersonalDataDto Data { get; set; }
     }
 }
