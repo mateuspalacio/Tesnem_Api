@@ -11,7 +11,6 @@ namespace Tesnem.Api.Domain.Models
 {
     public class Student : Person
     {
-        [Required]
         public List<Course> CoursesCurrent { get; set; }
         [NotMapped]
         public List<Course> CoursesCompleted { get; set; }
