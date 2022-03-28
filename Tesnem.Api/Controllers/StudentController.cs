@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO;
+using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.Models;
 using Tesnem.Api.Domain.Services;
 
@@ -17,14 +18,14 @@ namespace Tesnem.Api.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> AddStudent([FromBody] StudentDto s)
+        public async Task<IActionResult> AddStudent([FromBody] StudentRequest s)
         {
             var resp = await _service.AddStudent(s);
             return Ok(resp);
         }
         [HttpPut]
         [Route("update/{id}")]
-        public async Task<IActionResult> UpdateStudent([FromRoute] Guid id, [FromBody] StudentDto s)
+        public async Task<IActionResult> UpdateStudent([FromRoute] Guid id, [FromBody] StudentRequest s)
         {
             var resp = await _service.UpdateStudent(id, s);
             return Ok(resp);

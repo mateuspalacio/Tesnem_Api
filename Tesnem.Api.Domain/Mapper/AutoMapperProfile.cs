@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tesnem.Api.Domain.DTO;
+using Tesnem.Api.Domain.DTO.RequestDTO;
+using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Mapper
@@ -13,11 +15,18 @@ namespace Tesnem.Api.Domain.Mapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Student, StudentDto>().ReverseMap();
-            CreateMap<Professor, ProfessorDto>().ReverseMap();
-            CreateMap<PersonalData, PersonalDataDto>().ReverseMap();
-            CreateMap<Person, PersonDto>().ReverseMap();
-            CreateMap<ProgramMajor, MajorDto>().ReverseMap();
+            // Request mapping
+            CreateMap<Student, StudentRequest>().ReverseMap();
+            CreateMap<Professor, ProfessorRequest>().ReverseMap();
+            CreateMap<PersonalData, PersonalDataRequest>().ReverseMap();
+            CreateMap<Person, PersonRequest>().ReverseMap();
+            CreateMap<ProgramMajor, MajorRequest>().ReverseMap();
+            // Response mapping
+            CreateMap<Student, StudentResponse>().ReverseMap();
+            CreateMap<Professor, ProfessorResponse>().ReverseMap();
+            CreateMap<PersonalData, PersonalDataResponse>().ReverseMap();
+            CreateMap<Person, PersonResponse>().ReverseMap();
+            CreateMap<ProgramMajor, MajorResponse>().ReverseMap();
         }
     }
 }

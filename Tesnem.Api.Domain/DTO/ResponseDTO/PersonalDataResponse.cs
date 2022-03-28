@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tesnem.Api.Domain.DTO
+namespace Tesnem.Api.Domain.DTO.ResponseDTO
 {
-    public class PersonalDataDto
+    public class PersonalDataResponse
     {
+        public Guid Id { get; set; }
         public string AddressStreet { get; set; }
         [Required]
         public int AddressHouseNumber { get; set; }

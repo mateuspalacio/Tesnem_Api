@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Tesnem.Api.Domain.Models;
 
-namespace Tesnem.Api.Domain.DTO
+namespace Tesnem.Api.Domain.DTO.ResponseDTO
 {
-    public class StudentDto : PersonDto
+    public class StudentResponse : PersonResponse
     {
-        public MajorDto ProgramMajor { get; set; }
+        public MajorResponse ProgramMajor { get; set; }
     }
 }

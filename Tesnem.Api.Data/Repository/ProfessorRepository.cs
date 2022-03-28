@@ -30,7 +30,7 @@ namespace Tesnem.Api.Data.Repository
             if (delete != null)
                 _appDbContext.Professors.Remove(delete);
             else
-                throw new ErrorException(new ErrorResponse { Message = "not found", StatusCode = 404 });
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
             await _appDbContext.SaveChangesAsync();
         }
 
@@ -46,7 +46,7 @@ namespace Tesnem.Api.Data.Repository
             if (toUpdate != null)
                 _appDbContext.Update(professor);
             else
-                throw new ErrorException(new ErrorResponse { Message = "not found", StatusCode = 404 });
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
             return professor;
         }
     }
