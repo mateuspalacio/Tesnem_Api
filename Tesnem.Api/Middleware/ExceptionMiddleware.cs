@@ -26,7 +26,7 @@ namespace Tesnem.Api.Middleware
                     await context.Response.WriteAsJsonAsync(response);
                 } else
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex);
                 }
             }
 

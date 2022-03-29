@@ -28,6 +28,8 @@ namespace Tesnem.Api.Domain.Models
         public string City { get; set; }
         [MaxLength(2)]
         public string State { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress]
         public string Email { get; set; }
         [StringLength(11)]
         public string CPF { get; set; }

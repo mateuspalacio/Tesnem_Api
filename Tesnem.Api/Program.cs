@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tesnem.Api.Data;
 using Tesnem.Api.Data.Repository;
+using Tesnem.Api.Domain.Auth;
 using Tesnem.Api.Domain.Repository;
 using Tesnem.Api.Domain.Services;
 using Tesnem.Api.Middleware;
@@ -12,12 +14,25 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 
-builder.Services.AddControllers();
+services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+// Normal DB context + Identity context
+services.AddDbContext<AppDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
+services.AddDbContext<IdentityDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
 
+// Identity
+services.AddIdentity<User, IdentityRole>(opt =>
+{
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireUppercase = false;
+
+})
+        .AddEntityFrameworkStores<IdentityDbContext>();
+
+// Services DI
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
 services.AddScoped<IStudentService, StudentService>();

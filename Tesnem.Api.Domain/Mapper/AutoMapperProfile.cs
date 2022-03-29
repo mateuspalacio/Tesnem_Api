@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tesnem.Api.Domain.Auth;
 using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO;
@@ -27,6 +28,9 @@ namespace Tesnem.Api.Domain.Mapper
             CreateMap<PersonalData, PersonalDataResponse>().ReverseMap();
             CreateMap<Person, PersonResponse>().ReverseMap();
             CreateMap<ProgramMajor, MajorResponse>().ReverseMap();
+
+            // registration
+            CreateMap<UserRegistration, User>().ReverseMap();
         }
     }
 }
