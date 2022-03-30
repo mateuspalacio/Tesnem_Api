@@ -11,5 +11,6 @@ namespace Tesnem.Api.Domain.Exceptions
     { // This class we create all the exception messages that we might return, so instead of typing "not found" a
       // billion times we just do ExceptionMessages.PersonNotFound, and pass the Id or w/e parameter that we had asked for so they know what we didn't find
         public static ErrorResponse PersonNotFoundMessage => new("Student or Professor not found with Id {0}", (int)HttpStatusCode.NotFound);
+        public static ErrorResponse EnrollmentNotFoundMessage => new("Enrollment not found with Id {0}", (int)HttpStatusCode.NotFound);
     }
 }

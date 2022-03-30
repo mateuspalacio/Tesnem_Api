@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projetos College\\Tesnem\\Tesnem.Api\\Tesnem.Api.csproj": {}
+    "F:\\Tesnem\\tesnem_api\\Tesnem.Api\\Tesnem.Api.csproj": {}
   },
   "projects": {
-    "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj": {
+    "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj",
+        "projectUniqueName": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj",
         "projectName": "Tesnem.Api.Data",
-        "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj",
-        "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\obj\\",
+        "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +33,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
-                "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
+              "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
+                "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
               }
             }
           }
@@ -80,21 +85,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
+    "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj",
+        "projectUniqueName": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj",
         "projectName": "Tesnem.Api.Domain",
-        "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj",
-        "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\obj\\",
+        "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -140,21 +150,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj": {
+    "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj",
+        "projectUniqueName": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj",
         "projectName": "Tesnem.Api.Services",
-        "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj",
-        "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\obj\\",
+        "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -168,11 +183,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj": {
-                "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj"
+              "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj": {
+                "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Data\\Tesnem.Api.Data.csproj"
               },
-              "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
-                "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
+              "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
+                "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
               }
             }
           }
@@ -201,21 +216,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projetos College\\Tesnem\\Tesnem.Api\\Tesnem.Api.csproj": {
+    "F:\\Tesnem\\tesnem_api\\Tesnem.Api\\Tesnem.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos College\\Tesnem\\Tesnem.Api\\Tesnem.Api.csproj",
+        "projectUniqueName": "F:\\Tesnem\\tesnem_api\\Tesnem.Api\\Tesnem.Api.csproj",
         "projectName": "Tesnem.Api",
-        "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api\\Tesnem.Api.csproj",
-        "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api\\obj\\",
+        "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api\\Tesnem.Api.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -229,11 +249,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
-                "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
+              "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj": {
+                "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Domain\\Tesnem.Api.Domain.csproj"
               },
-              "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj": {
-                "projectPath": "E:\\Projetos College\\Tesnem\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj"
+              "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj": {
+                "projectPath": "F:\\Tesnem\\tesnem_api\\Tesnem.Api.Services\\Tesnem.Api.Services.csproj"
               }
             }
           }
@@ -295,7 +315,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

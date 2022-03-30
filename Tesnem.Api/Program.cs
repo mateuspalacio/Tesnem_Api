@@ -18,9 +18,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
 
+services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
 services.AddScoped<IStudentService, StudentService>();
+services.AddScoped<IEnrollmentService, EnrollmentService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -10,5 +10,7 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO
     public class StudentResponse : PersonResponse
     {
         public MajorResponse ProgramMajor { get; set; }
+
+        public List<Class> Classes { get; set; }
     }
 }
