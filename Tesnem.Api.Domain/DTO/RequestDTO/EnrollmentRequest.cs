@@ -9,6 +9,5 @@ namespace Tesnem.Api.Domain.DTO
     public class EnrollmentRequest
     {
         public Guid PersonID { get; set; }
-        public string EnrollmentNumber { get; set; }
     }
 }

@@ -14,8 +14,7 @@ namespace Tesnem.Api.Domain.Models
         public Guid Id { get; set; }
         [ForeignKey("Person")]
         public Guid PersonId { get; set; }
-        [StringLength(11)]
-        public string EnrollmentNumber { get; set; }
+        public string EnrollmentNumber { get; set; } = DateTime.Now.Date.ToString() + DateTime.Now.Millisecond + new Random().Next(1000000, 9999999) + DateTime.Now.AddMilliseconds(new Random().Next(100));
 
     }
 }
