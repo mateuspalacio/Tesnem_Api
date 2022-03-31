@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tesnem.Api.Domain.Exceptions
 {
-    public class NotFoundException : ErrorException
+    public class BadRegisterRequestException : ErrorException
     {
-        public NotFoundException(ErrorResponse errorResponse, object? obj) : base(errorResponse, obj)
+        public BadRegisterRequestException(ErrorResponse errorResponse, object? obj) : base(errorResponse, obj)
         {
         }
     }

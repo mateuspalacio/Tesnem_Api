@@ -9,7 +9,7 @@ namespace Tesnem.Api.Domain.Exceptions
     public class ErrorException : Exception
     {
         public ErrorResponse ErrorResponse { get; set; }
-        public ErrorException(ErrorResponse errorResponse, object obj)
+        public ErrorException(ErrorResponse errorResponse, object? obj)
         {
             ErrorResponse = errorResponse;
             ErrorResponse.ErrorValueOrField = obj;
