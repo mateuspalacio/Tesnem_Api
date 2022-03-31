@@ -1,4 +1,5 @@
-﻿using Tesnem.Api.Domain.Exceptions;
+﻿using System.Net;
+using Tesnem.Api.Domain.Exceptions;
 
 namespace Tesnem.Api.Middleware
 {
@@ -26,7 +27,16 @@ namespace Tesnem.Api.Middleware
                     await context.Response.WriteAsJsonAsync(response);
                 } else
                 {
+                    var response = new Error() { };
+                    response.Message = ex.Message;
+                    response.InnerException = ex.InnerException.Message;
+                    response.StackTrace = ex.StackTrace;
+                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
                     Console.WriteLine(ex);
+
+                    await context.Response.WriteAsJsonAsync(response);
                 }
             }
 
@@ -35,6 +45,8 @@ namespace Tesnem.Api.Middleware
     public class Error
     {
         public string Message { get; set; }
+        public string? InnerException { get; set; }
+        public string? StackTrace { get; set; }
         public int StatusCode { get; set; }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tesnem.Api.Domain.Exceptions
 {
-    public class NotFoundException : ErrorException
+    public class BadLoginRequestException : ErrorException
     {
-        public NotFoundException(ErrorResponse errorResponse, object? obj) : base(errorResponse, obj)
+        public BadLoginRequestException(ErrorResponse errorResponse, object? obj) : base(errorResponse, obj)
         {
         }
     }
