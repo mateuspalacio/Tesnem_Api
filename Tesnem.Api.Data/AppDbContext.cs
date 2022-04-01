@@ -21,5 +21,6 @@ namespace Tesnem.Api.Data
         public DbSet<Professor> Professors { get; set; }
         public DbSet<ProgramMajor> Majors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+
     }
 }

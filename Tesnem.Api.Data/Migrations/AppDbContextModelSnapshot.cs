@@ -88,6 +88,21 @@ namespace Tesnem.Api.Data.Migrations
                     b.ToTable("Classes");
                 });
 
+            modelBuilder.Entity("Tesnem.Api.Domain.Models.ClassStudent", b =>
+                {
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ClassId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("StudentId", "ClassId");
+
+                    b.HasIndex("ClassId");
+
+                    b.ToTable("ClassStudents");
+                });
+
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Course", b =>
                 {
                     b.Property<Guid>("Id")
@@ -341,6 +356,25 @@ namespace Tesnem.Api.Data.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Professor");
+                });
+
+            modelBuilder.Entity("Tesnem.Api.Domain.Models.ClassStudent", b =>
+                {
+                    b.HasOne("Tesnem.Api.Domain.Models.Class", "Class")
+                        .WithMany()
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tesnem.Api.Domain.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Course", b =>

@@ -19,7 +19,22 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<Student> AddClasses(string enrollmentNumber, List<Guid> newClassesIds)
         {
-            var toUpdate = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
+            var student = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
+            foreach (var newClassId in newClassesIds)
+            {
+                var classToAdd = _appDbContext.Classes.FirstOrDefault(x => x.Id == newClassId);
+                if (classToAdd.Students == null)
+                    classToAdd.Students = new List<Student>();
+                classToAdd.Students.Add(student);
+                _appDbContext.Update(classToAdd);
+                if (student.Classes == null)
+                    student.Classes = new List<Class>();
+                student.Classes.Add(classToAdd);
+            }
+            _appDbContext.Update(student);
+            _appDbContext.SaveChangesAsync();
+            return student;
+            /*var toUpdate = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
             if (toUpdate != null)
             {
                 List<Class> newClasses = new List<Class>();
@@ -33,7 +48,7 @@ namespace Tesnem.Api.Data.Repository
             }
             else
                 throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, enrollmentNumber);
-            return toUpdate;
+            return toUpdate;*/
         }
 
         public async Task<Enrollment> AddEnrollment(Enrollment enrollment)
@@ -64,7 +79,10 @@ namespace Tesnem.Api.Data.Repository
         {
             var toUpdate = _appDbContext.Enrollments.FirstOrDefault(y => y.Id == id);
             if (toUpdate != null)
+            {
                 _appDbContext.Update(enrollment);
+                _appDbContext.SaveChangesAsync();
+            }
             else
                 throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, id);
             return enrollment;

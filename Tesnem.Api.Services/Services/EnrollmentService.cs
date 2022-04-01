@@ -24,7 +24,7 @@ namespace Tesnem.Api.Services.Services
 
         public async Task<StudentResponse> AddClasses(string enrollmentNumber, AddClassesRequest newClasses)
         {
-            var classesRequest = _mapper.Map<List<Guid>>(newClasses);
+            var classesRequest = newClasses.Classes;
             var resp = await _rep.AddClasses(enrollmentNumber, classesRequest);
             return _mapper.Map<StudentResponse>(resp);
         }
