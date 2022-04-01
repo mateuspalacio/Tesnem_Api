@@ -29,8 +29,7 @@ services.AddIdentity<User, IdentityRole>(opt =>
     opt.Password.RequireDigit = false;
     opt.Password.RequireUppercase = false;
 
-})
-        .AddEntityFrameworkStores<IdentityDbContext>();
+}).AddEntityFrameworkStores<IdentityDbContext>();
 
 // Services DI
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
@@ -43,11 +42,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
