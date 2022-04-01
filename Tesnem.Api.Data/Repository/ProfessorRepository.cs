@@ -47,6 +47,7 @@ namespace Tesnem.Api.Data.Repository
                 _appDbContext.Update(professor);
             else
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
+            await _appDbContext.SaveChangesAsync();
             return professor;
         }
     }
