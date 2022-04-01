@@ -36,6 +36,7 @@ namespace Tesnem.Api.Data.Repository
         public async Task<Student> GetStudentById(Guid id)
         {
             var student = _appDbContext.Students.FirstOrDefault(x => x.Id == id);
+            student.Classes = _appDbContext.Classes.Where(x => x.Students.Contains(student)).ToList();
             return student;
         }
 

@@ -12,5 +12,6 @@ namespace Tesnem.Api.Domain.Exceptions
       // billion times we just do ExceptionMessages.PersonNotFound, and pass the Id or w/e parameter that we had asked for so they know what we didn't find
         public static ErrorResponse PersonNotFoundMessage => new("Student or Professor not found with Id {0}", (int)HttpStatusCode.NotFound);
         public static ErrorResponse EnrollmentNotFoundMessage => new("Enrollment not found with Id {0}", (int)HttpStatusCode.NotFound);
+        public static ErrorResponse StudentAlredyInClass => new("Student is alredy in the class with Id {0}, please remove the class from the add list.", (int)HttpStatusCode.BadRequest);
     }
 }

@@ -11,6 +11,6 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO
     {
         public MajorResponse ProgramMajor { get; set; }
 
-        //public List<Class> Classes { get; set; }
+        public List<Class> Classes { get; set; }
     }
 }
