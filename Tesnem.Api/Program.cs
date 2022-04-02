@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using Tesnem.Api.Data;
 using Tesnem.Api.Data.Repository;
 using Tesnem.Api.Domain.Auth;
@@ -14,7 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 
+<<<<<<< HEAD
 services.AddControllers();
+=======
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+>>>>>>> MatriculaController
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
@@ -31,10 +37,15 @@ services.AddIdentity<User, IdentityRole>(opt =>
 
 }).AddEntityFrameworkStores<IdentityDbContext>();
 
+<<<<<<< HEAD
 // Services DI
+=======
+services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+>>>>>>> MatriculaController
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
 services.AddScoped<IStudentService, StudentService>();
+services.AddScoped<IEnrollmentService, EnrollmentService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -17,12 +17,15 @@ namespace Tesnem.Api.Domain.Mapper
         public AutoMapperProfile()
         {
             // Request mapping
+            CreateMap<Enrollment, EnrollmentRequest>().ReverseMap();
+            CreateMap<List<Guid>, AddClassesRequest>().ReverseMap();
             CreateMap<Student, StudentRequest>().ReverseMap();
             CreateMap<Professor, ProfessorRequest>().ReverseMap();
             CreateMap<PersonalData, PersonalDataRequest>().ReverseMap();
             CreateMap<Person, PersonRequest>().ReverseMap();
             CreateMap<ProgramMajor, MajorRequest>().ReverseMap();
             // Response mapping
+            CreateMap<Enrollment, EnrollmentResponse>().ReverseMap();
             CreateMap<Student, StudentResponse>().ReverseMap();
             CreateMap<Professor, ProfessorResponse>().ReverseMap();
             CreateMap<PersonalData, PersonalDataResponse>().ReverseMap();
