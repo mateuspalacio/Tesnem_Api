@@ -37,9 +37,11 @@ services.AddIdentity<User, IdentityRole>(opt =>
 services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
+services.AddScoped<IMajorRepository, MajorRepository>();
 services.AddScoped<IStudentService, StudentService>();
 services.AddScoped<IEnrollmentService, EnrollmentService>();
 services.AddScoped<IProfessorService, ProfessorService>();
+services.AddScoped<IMajorService, MajorService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
