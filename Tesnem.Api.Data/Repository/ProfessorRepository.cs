@@ -44,7 +44,11 @@ namespace Tesnem.Api.Data.Repository
         {
             var toUpdate = _appDbContext.Professors.FirstOrDefault(y => y.Id == id);
             if (toUpdate != null)
-                _appDbContext.Update(professor);
+            {
+                toUpdate.Name = professor.Name;
+                toUpdate.Data=professor.Data;
+                _appDbContext.Update(toUpdate);
+            }
             else
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
             await _appDbContext.SaveChangesAsync();
