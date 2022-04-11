@@ -43,9 +43,13 @@ namespace Tesnem.Api.Data.Repository
         {
             var toUpdate = _appDbContext.Majors.FirstOrDefault(y => y.Id == id);
             if (toUpdate != null)
-                _appDbContext.Update(major);
+            {
+                toUpdate.Name=major.Name;
+                toUpdate.Type=major.Type;
+                _appDbContext.Update(toUpdate);
+            }
             else
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
+                throw new NotFoundException(ExceptionMessages.MajorNotFound, id);
             await _appDbContext.SaveChangesAsync();
             return major;
         }

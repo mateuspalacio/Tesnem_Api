@@ -36,21 +36,6 @@ namespace Tesnem.Api.Data.Repository
             _appDbContext.Students.Update(student);
             _appDbContext.SaveChangesAsync();
             return student;
-            /*var toUpdate = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
-            if (toUpdate != null)
-            {
-                List<Class> newClasses = new List<Class>();
-                foreach (var newClassId in newClassesIds)
-                {
-                    var newClass = _appDbContext.Classes.FirstOrDefault(y => y.Id == newClassId);
-                    newClasses.Add(newClass);
-                }
-                toUpdate.Classes = (List<Class>)toUpdate.Classes.Concat(newClasses);
-                var res =_appDbContext.Update(toUpdate);
-            }
-            else
-                throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, enrollmentNumber);
-            return toUpdate;*/
         }
 
         public async Task<Enrollment> AddEnrollment(Enrollment enrollment)
@@ -82,7 +67,8 @@ namespace Tesnem.Api.Data.Repository
             var toUpdate = _appDbContext.Enrollments.FirstOrDefault(y => y.Id == id);
             if (toUpdate != null)
             {
-                _appDbContext.Update(enrollment);
+                toUpdate.PersonId = enrollment.PersonId;
+                _appDbContext.Update(toUpdate);
                 _appDbContext.SaveChangesAsync();
             }
             else
