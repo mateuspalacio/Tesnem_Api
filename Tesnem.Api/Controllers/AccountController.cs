@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,6 +10,8 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    [ApiController]
     public class AccountController : Controller
     {
         private readonly IMapper _mapper;
@@ -19,7 +22,7 @@ namespace Tesnem.Api.Controllers
             _userManager = userManager;
         }
         [HttpPost]
-        [Route("student")]
+        [Route("register/student")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterStudent([FromBody]UserRegistration userModel)
         {
@@ -44,7 +47,7 @@ namespace Tesnem.Api.Controllers
             return NoContent();
         }
         [HttpPost]
-        [Route("professor")]
+        [Route("register/professor")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterProfessor([FromBody] UserRegistration userModel)
         {
@@ -70,7 +73,7 @@ namespace Tesnem.Api.Controllers
             return NoContent();
         }
         [HttpPost]
-        [Route("admin")]
+        [Route("register/admin")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterAdmin([FromBody] UserRegistration userModel)
         {

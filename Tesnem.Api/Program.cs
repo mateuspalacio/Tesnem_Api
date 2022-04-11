@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Tesnem.Api.Data;
 using Tesnem.Api.Data.Repository;
@@ -33,6 +34,25 @@ services.AddIdentity<User, IdentityRole>(opt =>
 
 }).AddEntityFrameworkStores<IdentityDbContext>();
 
+services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://localhost:5001";
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateAudience = false
+        };
+    });
+
+services.AddAuthorization(options =>
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "ApiUser");
+    })
+);
+
 // Services DI
 services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
@@ -54,8 +74,9 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization("ApiScope");
 
 app.Run();
