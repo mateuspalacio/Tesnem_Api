@@ -18,6 +18,7 @@ namespace Tesnem.Api.Domain.Mapper
         {
             // Request mapping
             CreateMap<Enrollment, EnrollmentRequest>().ReverseMap();
+            CreateMap<Course, CourseRequest>().ReverseMap();
             CreateMap<List<Guid>, AddClassesRequest>().ReverseMap();
             CreateMap<Student, StudentRequest>().ReverseMap();
             CreateMap<Professor, ProfessorRequest>().ReverseMap();
@@ -25,6 +26,7 @@ namespace Tesnem.Api.Domain.Mapper
             CreateMap<Person, PersonRequest>().ReverseMap();
             CreateMap<ProgramMajor, MajorRequest>().ReverseMap();
             // Response mapping
+            CreateMap<Course, CourseResponse>().ReverseMap();
             CreateMap<Enrollment, EnrollmentResponse>().ReverseMap();
             CreateMap<Student, StudentResponse>().ReverseMap();
             CreateMap<Professor, ProfessorResponse>().ReverseMap();

@@ -15,7 +15,8 @@ namespace Tesnem.Api.Domain.Exceptions
         public static ErrorResponse BadLoginRequestMessage => new("Couldn't login user, incorrect username or password.", (int)HttpStatusCode.BadRequest);
         public static ErrorResponse EnrollmentNotFoundMessage => new("Enrollment not found with Id {0}", (int)HttpStatusCode.NotFound);
         public static ErrorResponse StudentAlredyInClass => new("Student is alredy in the class with Id {0}, please remove the class from the add list.", (int)HttpStatusCode.BadRequest);
-        public static ErrorResponse MajorNotFound => new("Major not found with Id {0}", (int)HttpStatusCode.BadRequest);
+        public static ErrorResponse MajorNotFoundMessage => new("Major not found with Id {0}", (int)HttpStatusCode.BadRequest);
+        public static ErrorResponse CourseNotFoundMessage => new("Course not found with Id {0}", (int)HttpStatusCode.BadRequest);
 
     }
 }
