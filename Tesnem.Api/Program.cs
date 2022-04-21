@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
-
+var configuration = builder.Configuration;
 
 services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -37,7 +37,7 @@ services.AddIdentity<User, IdentityRole>(opt =>
 services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
-        options.Authority = "https://localhost:5001";
+        options.Authority = configuration["IdentityServer"];
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
