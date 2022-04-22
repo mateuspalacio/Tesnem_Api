@@ -18,6 +18,8 @@ namespace Tesnem.Api.Data.Repository
         }
         public async Task<Class> AddClass(Class classroom)
         {
+            classroom.Professor = _appDbContext.Professors.FirstOrDefault(x => x.Id == classroom.Professor.Id);
+            classroom.Course = _appDbContext.Courses.FirstOrDefault(x => x.Id == classroom.Course.Id);
             var resp = await _appDbContext.Classes.AddAsync(classroom);
             await _appDbContext.SaveChangesAsync();
             return resp.Entity;
