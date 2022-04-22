@@ -9,6 +9,7 @@ using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Models;
+using Tesnem.Api.Domain.Repository;
 
 namespace Tesnem.Api.Domain.Mapper
 {
@@ -18,19 +19,24 @@ namespace Tesnem.Api.Domain.Mapper
         {
             // Request mapping
             CreateMap<Enrollment, EnrollmentRequest>().ReverseMap();
+            CreateMap<Course, CourseRequest>().ReverseMap();
             CreateMap<List<Guid>, AddClassesRequest>().ReverseMap();
             CreateMap<Student, StudentRequest>().ReverseMap();
             CreateMap<Professor, ProfessorRequest>().ReverseMap();
             CreateMap<PersonalData, PersonalDataRequest>().ReverseMap();
             CreateMap<Person, PersonRequest>().ReverseMap();
             CreateMap<ProgramMajor, MajorRequest>().ReverseMap();
+            CreateMap<Class, ClassRequest>().ReverseMap();
+
             // Response mapping
+            CreateMap<Course, CourseResponse>().ReverseMap();
             CreateMap<Enrollment, EnrollmentResponse>().ReverseMap();
             CreateMap<Student, StudentResponse>().ReverseMap();
             CreateMap<Professor, ProfessorResponse>().ReverseMap();
             CreateMap<PersonalData, PersonalDataResponse>().ReverseMap();
             CreateMap<Person, PersonResponse>().ReverseMap();
             CreateMap<ProgramMajor, MajorResponse>().ReverseMap();
+            CreateMap<Class, ClassResponse>().ReverseMap();
 
             // registration
             CreateMap<UserRegistration, User>().ReverseMap();

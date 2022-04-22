@@ -35,11 +35,15 @@ services.AddIdentity<User, IdentityRole>(opt =>
 
 // Services DI
 services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+services.AddScoped<IClassRepository, ClassRepository>();
+services.AddScoped<ICourseRepository, CourseRepository>();
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
 services.AddScoped<IMajorRepository, MajorRepository>();
 services.AddScoped<IStudentService, StudentService>();
 services.AddScoped<IEnrollmentService, EnrollmentService>();
+services.AddScoped<IClassService, ClassService>();
+services.AddScoped<ICourseService, CourseService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 services.AddScoped<IMajorService, MajorService>();
 

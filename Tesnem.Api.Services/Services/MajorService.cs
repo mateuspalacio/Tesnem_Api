@@ -38,7 +38,7 @@ namespace Tesnem.Api.Services.Services
         {
             var resp = await _rep.GetMajorById(id);
             if (resp is null)
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             return _mapper.Map<MajorResponse>(resp);
         }
 
@@ -47,7 +47,7 @@ namespace Tesnem.Api.Services.Services
             var maj = _mapper.Map<ProgramMajor>(major);
             var resp = await _rep.UpdateMajor(id, maj);
             if (resp is null)
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             return _mapper.Map<MajorResponse>(resp);
         }
     }

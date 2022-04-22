@@ -29,7 +29,7 @@ namespace Tesnem.Api.Data.Repository
             if (delete != null)
                 _appDbContext.Majors.Remove(delete);
             else
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             await _appDbContext.SaveChangesAsync();
         }
 
@@ -49,7 +49,7 @@ namespace Tesnem.Api.Data.Repository
                 _appDbContext.Update(toUpdate);
             }
             else
-                throw new NotFoundException(ExceptionMessages.MajorNotFound, id);
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             await _appDbContext.SaveChangesAsync();
             return major;
         }
