@@ -17,7 +17,7 @@ namespace Tesnem.Api.Domain.Models
         [Required]
         public string Name { get; set; }
         public List<Test> Tests { get; set; }
-        List<Course> Requirements { get; set; }
+        public List<CourseRequirement> Requirements { get; set; }
         public List<Student> Students { get; set; }
         public List<Professor> Professors { get; set; }
         public List<Class> Classes { get; set; }

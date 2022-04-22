@@ -31,7 +31,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("ClassStudent");
+                    b.ToTable("ClassStudent", (string)null);
                 });
 
             modelBuilder.Entity("CourseProfessor", b =>
@@ -46,7 +46,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("TeacherOfCoursesId");
 
-                    b.ToTable("CourseProfessor");
+                    b.ToTable("CourseProfessor", (string)null);
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -61,7 +61,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudent", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Class", b =>
@@ -85,22 +85,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Classes");
-                });
-
-            modelBuilder.Entity("Tesnem.Api.Domain.Models.ClassStudent", b =>
-                {
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ClassId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("StudentId", "ClassId");
-
-                    b.HasIndex("ClassId");
-
-                    b.ToTable("ClassStudents");
+                    b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Course", b =>
@@ -120,7 +105,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("Program_Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Enrollment", b =>
@@ -141,7 +126,7 @@ namespace Tesnem.Api.Data.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("Enrollments", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Person", b =>
@@ -160,7 +145,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Person");
+                    b.ToTable("Person", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
@@ -219,7 +204,7 @@ namespace Tesnem.Api.Data.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.ToTable("PersonalData");
+                    b.ToTable("PersonalData", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.ProgramMajor", b =>
@@ -237,7 +222,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Majors");
+                    b.ToTable("Majors", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Test", b =>
@@ -269,7 +254,7 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasIndex("Student_Id");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Professor", b =>
@@ -356,25 +341,6 @@ namespace Tesnem.Api.Data.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Professor");
-                });
-
-            modelBuilder.Entity("Tesnem.Api.Domain.Models.ClassStudent", b =>
-                {
-                    b.HasOne("Tesnem.Api.Domain.Models.Class", "Class")
-                        .WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tesnem.Api.Domain.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Course", b =>

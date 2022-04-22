@@ -10,9 +10,8 @@ namespace Tesnem.Api.Controllers
     [ApiController]
     public class ClassController : ControllerBase
     {
-        /*
         private readonly IClassService _service;
-        public ClassController(IStudentService service)
+        public ClassController(IClassService service)
         {
             _service = service;
         }
@@ -21,7 +20,7 @@ namespace Tesnem.Api.Controllers
         [Route("add")]
         public async Task<IActionResult> AddClass([FromBody] ClassRequest s)
         {
-            var resp = await _service.AddStudent(s);
+            var resp = await _service.AddClass(s);
             return Ok(resp);
         }
         [HttpPut]
@@ -44,6 +43,6 @@ namespace Tesnem.Api.Controllers
         {
             var resp = await _service.GetClassById(id);
             return Ok(resp);
-        }*/
+        }
     }
 }
