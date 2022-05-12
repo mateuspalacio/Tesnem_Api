@@ -73,7 +73,8 @@ namespace Tesnem.Api.Controllers
             return NoContent();
         }
         [HttpPost]
-        [Route("register/admin")]
+        [Route("admin/register")]
+        [Authorize("Admin")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterAdmin([FromBody] UserRegistration userModel)
         {
@@ -103,6 +104,29 @@ namespace Tesnem.Api.Controllers
         [Route("login")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody] UserLogin userModel)
+        {
+            var user = await _userManager.FindByNameAsync(userModel.UserName);
+            var valid = await _userManager.CheckPasswordAsync(user, userModel.Password);
+            if (user != null && valid)
+            {
+                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,
+                    new ClaimsPrincipal(identity));
+                return NoContent();
+            }
+            else
+            {
+                throw new ErrorException(ExceptionMessages.BadLoginRequestMessage, null);
+            }
+        }
+
+        [HttpPost]
+        [Route("admin/login")]
+        [Authorize("Admin")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminLogin([FromBody] UserLogin userModel)
         {
             var user = await _userManager.FindByNameAsync(userModel.UserName);
             var valid = await _userManager.CheckPasswordAsync(user, userModel.Password);

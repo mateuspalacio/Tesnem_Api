@@ -15,9 +15,9 @@ namespace Tesnem.Api.Services.Services
 {
     public class ClassService : IClassService
     {
-        private readonly IClassRepository _rep;
+        private readonly IUnitOfWork _rep;
         private readonly IMapper _mapper;
-        public ClassService(IClassRepository repository, IMapper mapper)
+        public ClassService(IUnitOfWork repository, IMapper mapper)
         {
             _rep = repository;
             _mapper = mapper;
@@ -25,18 +25,19 @@ namespace Tesnem.Api.Services.Services
         public async Task<ClassResponse> AddClass(ClassRequest classroom)
         {
             var clas = _mapper.Map<Class>(classroom);
-            var resp = await _rep.AddClass(clas);
+            var resp = await _rep.Classes.Add(clas);
             return _mapper.Map<ClassResponse>(resp);
         }
 
         public async Task DeleteClass(Guid id)
         {
-            await _rep.DeleteClass(id);
+            var resp = await _rep.Classes.GetById(id);
+            await _rep.Classes.Delete(resp);
         }
 
         public async Task<ClassResponse> GetClassById(Guid id)
         {
-            var resp = await _rep.GetClassById(id);
+            var resp = await _rep.Classes.GetById(id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
@@ -45,7 +46,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<ClassResponse> UpdateClass(Guid id, ClassRequest classroom)
         {
             var clas = _mapper.Map<Class>(classroom);
-            var resp = await _rep.UpdateClass(id, clas);
+            var resp = await _rep.Classes.Update(id, clas);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);

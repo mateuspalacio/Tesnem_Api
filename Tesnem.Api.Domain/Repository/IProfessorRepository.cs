@@ -7,11 +7,10 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Repository
 {
-    public interface IProfessorRepository
+    public interface IProfessorRepository : IGenericRepository <Professor>
     {
-        Task<Professor> AddProfessor(Professor professor);
-        Task<Professor> UpdateProfessor(Guid id, Professor professor);
-        Task DeleteProfessor(Guid id);
-        Task<Professor> GetProfessorById(Guid id);
+        Task<IEnumerable<Professor>> GetAllProfessors();
+        Task<IEnumerable<Professor>> GetAllProfessorsByCourse(Guid courseId);
+
     }
 }

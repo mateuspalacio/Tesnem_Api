@@ -8,11 +8,7 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Repository
 {
-    public interface ICourseRepository
+    public interface ICourseRepository : IGenericRepository<Course>
     {
-        Task<Course> AddCourse(Course course);
-        Task<Course> UpdateCourse(Guid id, Course course);
-        Task DeleteCourse(Guid id);
-        Task<Course> GetCourseById(Guid id);
     }
 }

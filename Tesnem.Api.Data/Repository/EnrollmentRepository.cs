@@ -9,10 +9,10 @@ using Tesnem.Api.Domain.Repository;
 
 namespace Tesnem.Api.Data.Repository
 {
-    public class EnrollmentRepository : IEnrollmentRepository
+    public class EnrollmentRepository : GenericRepository<Enrollment>, IEnrollmentRepository
     {
         private readonly AppDbContext _appDbContext;
-        public EnrollmentRepository(AppDbContext appDbContext)
+        public EnrollmentRepository(AppDbContext appDbContext) : base(appDbContext)
         {
             _appDbContext = appDbContext;
         }
@@ -20,7 +20,10 @@ namespace Tesnem.Api.Data.Repository
         public async Task<Student> AddClasses(string enrollmentNumber, List<Guid> newClassesIds)
         {
             var student = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
-            student.Classes = _appDbContext.Classes.Where(x => x.Students.Contains(student)).ToList();
+            if (student is not null)
+                student.Classes = _appDbContext.Classes.Where(x => x.Students.Contains(student)).ToList();
+            else
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, enrollmentNumber);
             foreach (var newClassId in newClassesIds)
             {
                 var classToAdd = _appDbContext.Classes.FirstOrDefault(x => x.Id == newClassId);
@@ -34,46 +37,8 @@ namespace Tesnem.Api.Data.Repository
                 student.Classes.Add(classToAdd);
             }
             _appDbContext.Students.Update(student);
-            _appDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
             return student;
-        }
-
-        public async Task<Enrollment> AddEnrollment(Enrollment enrollment)
-        {   
-            var resp = await _appDbContext.Enrollments.AddAsync(enrollment);
-            await _appDbContext.SaveChangesAsync();
-            return resp.Entity;
-        }
-
-
-        public async Task DeleteEnrollment(Guid id)
-        {
-            var delete = _appDbContext.Enrollments.FirstOrDefault(x => x.Id == id);
-            if (delete != null)
-                _appDbContext.Enrollments.Remove(delete);
-            else
-                throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, id);
-            await _appDbContext.SaveChangesAsync();
-        }
-
-        public async Task<Enrollment> GetEnrollmentById(Guid id)
-        {
-            var enrollment = _appDbContext.Enrollments.FirstOrDefault(x => x.Id == id);
-            return enrollment;
-        }
-
-        public async Task<Enrollment> UpdateEnrollment(Guid id, Enrollment enrollment)
-        {
-            var toUpdate = _appDbContext.Enrollments.FirstOrDefault(y => y.Id == id);
-            if (toUpdate != null)
-            {
-                toUpdate.PersonId = enrollment.PersonId;
-                _appDbContext.Update(toUpdate);
-                _appDbContext.SaveChangesAsync();
-            }
-            else
-                throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, id);
-            return enrollment;
         }
     }
 }

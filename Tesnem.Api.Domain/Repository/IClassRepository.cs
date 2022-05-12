@@ -7,11 +7,7 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Repository
 {
-    public interface IClassRepository
+    public interface IClassRepository : IGenericRepository<Class>
     {
-        Task<Class> AddClass(Class classroom);
-        Task<Class> UpdateClass(Guid id, Class classroom);
-        Task DeleteClass(Guid id);
-        Task<Class> GetClassById(Guid id);
     }
 }

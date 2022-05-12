@@ -35,6 +35,22 @@ namespace Tesnem.Api.Services.Services
             await _rep.DeleteProfessor(id);
         }
 
+        public async Task<IEnumerable<ProfessorResponse>> GetAllProfessors()
+        {
+            var resp = await _rep.GetAllProfessors();
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+            return _mapper.Map<IEnumerable<ProfessorResponse>>(resp);
+        }
+
+        public async Task<IEnumerable<ProfessorResponse>> GetAllProfessorsByCourse(Guid courseId)
+        {
+            var resp = await _rep.GetAllProfessorsByCourse(courseId);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, courseId);
+            return _mapper.Map<IEnumerable<ProfessorResponse>>(resp);
+        }
+
         public async Task<ProfessorResponse> GetProfessorById(Guid id)
         {
             var resp = await _rep.GetProfessorById(id);

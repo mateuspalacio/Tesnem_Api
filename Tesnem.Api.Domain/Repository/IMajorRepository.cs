@@ -7,11 +7,7 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Repository
 {
-    public interface IMajorRepository
+    public interface IMajorRepository : IGenericRepository<ProgramMajor>
     {
-        Task<ProgramMajor> AddMajor(ProgramMajor major);
-        Task<ProgramMajor> UpdateMajor(Guid id, ProgramMajor major);
-        Task DeleteMajor(Guid id);
-        Task<ProgramMajor> GetMajorById(Guid id);
     }
 }

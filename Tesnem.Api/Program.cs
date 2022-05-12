@@ -8,6 +8,7 @@ using Tesnem.Api.Domain.Auth;
 using Tesnem.Api.Domain.Repository;
 using Tesnem.Api.Domain.Services;
 using Tesnem.Api.Middleware;
+using Tesnem.Api.Middleware.Handlers;
 using Tesnem.Api.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,20 +47,19 @@ services.AddAuthentication("Bearer")
     });
 
 services.AddAuthorization(options =>
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "ApiUser");
-    })
-);
+{
+    options.AddPolicy("User", policy => policy.Requirements.Add(new HasScopeRequirement("ApiUser")));
+    options.AddPolicy("Admin", policy => policy.Requirements.Add(new HasScopeRequirement("ApiAdmin")));
+});
 
-// Services DI
+// Services & Repository DI
 services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
 services.AddScoped<IClassRepository, ClassRepository>();
 services.AddScoped<ICourseRepository, CourseRepository>();
 services.AddScoped<IProfessorRepository, ProfessorRepository>();
 services.AddScoped<IStudentRepository, StudentRepository>();
 services.AddScoped<IMajorRepository, MajorRepository>();
+services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<IStudentService, StudentService>();
 services.AddScoped<IEnrollmentService, EnrollmentService>();
 services.AddScoped<IClassService, ClassService>();
@@ -83,6 +83,6 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers().RequireAuthorization("ApiScope");
+app.MapControllers().RequireAuthorization();
 
 app.Run();

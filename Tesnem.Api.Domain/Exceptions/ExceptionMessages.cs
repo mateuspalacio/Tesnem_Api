@@ -17,6 +17,7 @@ namespace Tesnem.Api.Domain.Exceptions
         public static ErrorResponse StudentAlredyInClass => new("Student is alredy in the class with Id {0}, please remove the class from the add list.", (int)HttpStatusCode.BadRequest);
         public static ErrorResponse MajorNotFoundMessage => new("Major not found with Id {0}", (int)HttpStatusCode.BadRequest);
         public static ErrorResponse CourseNotFoundMessage => new("Course not found with Id {0}", (int)HttpStatusCode.BadRequest);
+        public static ErrorResponse NoEntitiesOnDb => new("No items found were found for this query.", (int)HttpStatusCode.NotFound);
 
     }
 }

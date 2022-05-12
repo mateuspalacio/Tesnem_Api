@@ -45,5 +45,13 @@ namespace Tesnem.Api.Controllers
             var resp = await _service.GetProfessorById(id);
             return Ok(resp);
         }
+
+        [HttpGet]
+        [Route("get/all")]
+        public async Task<IActionResult> GetAllProfessors()
+        {
+            var resp = await _service.GetAllProfessors();
+            return Ok(resp);
+        }
     }
 }
