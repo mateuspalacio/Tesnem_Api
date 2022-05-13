@@ -42,7 +42,7 @@ namespace Tesnem.Api.Controllers
         }
         [HttpGet]
         [Route("get/{id}")]
-        public async Task<IActionResult> GetStudent([FromRoute] Guid id)
+        public async Task<ActionResult<StudentResponse>> GetStudent([FromRoute] Guid id)
         {
             var resp = await _service.GetStudentById(id);
             return Ok(resp);
@@ -57,14 +57,14 @@ namespace Tesnem.Api.Controllers
         }
         [HttpGet]
         [Route("get/all/course/{courseId}")]
-        public async Task<IActionResult> GetStudentsByCourse([FromRoute] Guid courseId)
+        public async Task<ActionResult<IEnumerable<StudentResponse>>> GetStudentsByCourse([FromRoute] Guid courseId)
         {
             var resp = await _service.GetAllStudentsByCourse(courseId);
             return Ok(resp);
         }
         [HttpGet]
         [Route("get/all/class/{classId}")]
-        public async Task<IActionResult> GetStudentsByClass([FromRoute] Guid classId)
+        public async Task<ActionResult<IEnumerable<StudentResponse>>> GetStudentsByClass([FromRoute] Guid classId)
         {
             var resp = await _service.GetAllStudentsByClass(classId);
             return Ok(resp);
