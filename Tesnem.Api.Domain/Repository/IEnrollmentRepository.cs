@@ -7,12 +7,8 @@ using Tesnem.Api.Domain.Models;
 
 namespace Tesnem.Api.Domain.Repository
 {
-    public interface IEnrollmentRepository
+    public interface IEnrollmentRepository : IGenericRepository<Enrollment>
     {
-        Task<Enrollment> AddEnrollment(Enrollment enrollment);
         Task<Student> AddClasses(string enrollmentNumber, List<Guid> newClassesIds);
-        Task<Enrollment> UpdateEnrollment(Guid id, Enrollment enrollment);
-        Task DeleteEnrollment(Guid id);
-        Task<Enrollment> GetEnrollmentById(Guid id);
     }
 }
