@@ -32,6 +32,8 @@ namespace Tesnem.Api.Services.Services
         public async Task DeleteClass(Guid id)
         {
             var resp = await _rep.Classes.GetById(id);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
             await _rep.Classes.Delete(resp);
         }
 
@@ -39,7 +41,7 @@ namespace Tesnem.Api.Services.Services
         {
             var resp = await _rep.Classes.GetById(id);
             if (resp is null)
-                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
         }
 

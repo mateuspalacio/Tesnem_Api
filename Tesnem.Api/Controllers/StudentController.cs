@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
+using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Models;
 using Tesnem.Api.Domain.Services;
 
@@ -49,9 +50,30 @@ namespace Tesnem.Api.Controllers
 
         [HttpGet]
         [Route("get/all")]
-        public async Task<IActionResult> GetAllStudents()
+        public async Task<ActionResult<IEnumerable<StudentResponse>>> GetAllStudents()
         {
             var resp = await _service.GetAllStudents();
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/all/course/{courseId}")]
+        public async Task<IActionResult> GetStudentsByCourse([FromRoute] Guid courseId)
+        {
+            var resp = await _service.GetAllStudentsByCourse(courseId);
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/all/class/{classId}")]
+        public async Task<IActionResult> GetStudentsByClass([FromRoute] Guid classId)
+        {
+            var resp = await _service.GetAllStudentsByClass(classId);
+            return Ok(resp);
+        }
+        [HttpDelete]
+        [Route("delete/list")]
+        public async Task<ActionResult<IEnumerable<DeleteListResponse>>> DeleteStudents([FromBody] DeleteListRequest list)
+        {
+            var resp = await _service.DeleteMultipleStudents(list.DeleteList);
             return Ok(resp);
         }
     }

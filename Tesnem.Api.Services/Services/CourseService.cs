@@ -32,6 +32,8 @@ namespace Tesnem.Api.Services.Services
         public async Task DeleteCourse(Guid id)
         {
             var resp = await _rep.Courses.GetById(id);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             await _rep.Courses.Delete(resp);
         }
 

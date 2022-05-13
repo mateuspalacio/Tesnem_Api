@@ -18,6 +18,7 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
+
         public async Task<IEnumerable<Professor>> GetAllProfessors()
         {
             var prof = _appDbContext.Professors

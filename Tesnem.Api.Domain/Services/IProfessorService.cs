@@ -18,5 +18,7 @@ namespace Tesnem.Api.Domain.Services
         Task<ProfessorResponse> GetProfessorById(Guid id);
         Task<IEnumerable<ProfessorResponse>> GetAllProfessors();
         Task<IEnumerable<ProfessorResponse>> GetAllProfessorsByCourse(Guid courseId);
+        Task<IEnumerable<Guid>> DeleteMultipleProfessors(List<Guid> professorIds);
+
     }
 }
