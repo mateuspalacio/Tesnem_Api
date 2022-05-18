@@ -67,6 +67,8 @@ services.AddScoped<ICourseService, CourseService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 services.AddScoped<IMajorService, MajorService>();
 
+services.AddCors();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
@@ -79,6 +81,11 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();
