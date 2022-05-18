@@ -17,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
+services.AddCors();
+
 services.AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -66,8 +68,6 @@ services.AddScoped<IClassService, ClassService>();
 services.AddScoped<ICourseService, CourseService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 services.AddScoped<IMajorService, MajorService>();
-
-services.AddCors();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
