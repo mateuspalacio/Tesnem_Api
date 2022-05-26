@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Exceptions;
 using Tesnem.Api.Domain.Models;
 using Tesnem.Api.Domain.Repository;
@@ -16,6 +17,11 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
-        
+
+        public async Task<IEnumerable<Course>> GetAllCourses(Guid courseId)
+        {
+            var Courses = _appDbContext.Courses;
+            return Courses;
+        }
     }
 }
