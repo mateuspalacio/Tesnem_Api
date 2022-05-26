@@ -37,6 +37,28 @@ namespace Tesnem.Api.Services.Services
             await _rep.Classes.Delete(resp);
         }
 
+        public async Task<IEnumerable<Guid>> DeleteMultipleClasses(List<Guid> classesIds)
+        {
+            List<Guid> deletedWithSuccess = new List<Guid>();
+            foreach (Guid id in classesIds)
+            {
+                var deleteClass = await _rep.Classes.GetById(id);
+                if (deleteClass == null)
+                    continue;
+                await _rep.Classes.Delete(deleteClass);
+                deletedWithSuccess.Add(id);
+            }
+            return deletedWithSuccess;
+        }
+
+        public async Task<IEnumerable<ClassResponse>> GetAllClasses()
+        {
+            var resp = await _rep.Classes.GetAllClasses();
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+            return _mapper.Map<IEnumerable<ClassResponse>>(resp);
+        }
+
         public async Task<ClassResponse> GetClassById(Guid id)
         {
             var resp = await _rep.Classes.GetById(id);

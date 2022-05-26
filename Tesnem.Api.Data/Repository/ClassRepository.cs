@@ -16,6 +16,13 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
+
+        public async Task<IEnumerable<Class>> GetAllClasses()
+        {
+            var classes = _appDbContext.Classes;
+            return classes;
+        }
+
         //public async Task<Class> AddClass(Class classroom)
         //{
         //    classroom.Professor = _appDbContext.Professors.FirstOrDefault(x => x.Id == classroom.Professor.Id);

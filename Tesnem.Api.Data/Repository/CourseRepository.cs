@@ -17,8 +17,7 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
-
-        public async Task<IEnumerable<Course>> GetAllCourses(Guid courseId)
+        public async Task<IEnumerable<Course>> GetAllCourses()
         {
             var Courses = _appDbContext.Courses;
             return Courses;
