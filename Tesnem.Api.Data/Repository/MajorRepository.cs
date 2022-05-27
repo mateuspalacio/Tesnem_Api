@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,9 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
-        public async Task<IEnumerable<ProgramMajor>> GetAllStudents()
+        public async Task<IEnumerable<ProgramMajor>> GetAllMajors()
         {
-            var majors = _appDbContext.Majors;
+            var majors = _appDbContext.Majors.ToList();
             return majors;
         }
     }

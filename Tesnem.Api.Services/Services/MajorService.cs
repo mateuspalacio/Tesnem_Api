@@ -55,7 +55,7 @@ namespace Tesnem.Api.Services.Services
         }
         public async Task<IEnumerable<MajorResponse>> GetAllMajors()
         {
-            var resp = await _rep.Students.GetAllStudents();
+            var resp = await _rep.Majors.GetAllMajors();
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
             return _mapper.Map<IEnumerable<MajorResponse>>(resp);

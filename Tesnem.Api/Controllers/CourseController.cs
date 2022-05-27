@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO;
@@ -9,6 +10,7 @@ namespace Tesnem.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _service;

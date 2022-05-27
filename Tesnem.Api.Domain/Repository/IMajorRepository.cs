@@ -10,6 +10,6 @@ namespace Tesnem.Api.Domain.Repository
 {
     public interface IMajorRepository : IGenericRepository<ProgramMajor>
     {
-        Task<IEnumerable<ProgramMajor>> GetAllStudents();
+        Task<IEnumerable<ProgramMajor>> GetAllMajors();
     }
 }
