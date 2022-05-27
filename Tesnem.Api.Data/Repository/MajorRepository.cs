@@ -16,6 +16,10 @@ namespace Tesnem.Api.Data.Repository
         {
             _appDbContext = appDbContext;
         }
-       
+        public async Task<IEnumerable<ProgramMajor>> GetAllStudents()
+        {
+            var majors = _appDbContext.Majors;
+            return majors;
+        }
     }
 }

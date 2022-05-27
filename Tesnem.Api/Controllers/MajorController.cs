@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO.RequestDTO;
+using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Services;
 
 namespace Tesnem.Api.Controllers
@@ -40,6 +41,20 @@ namespace Tesnem.Api.Controllers
         public async Task<IActionResult> GetMajor([FromRoute] Guid id)
         {
             var resp = await _service.GetMajorById(id);
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/all")]
+        public async Task<ActionResult<IEnumerable<MajorResponse>>> GetAllMajors()
+        {
+            var resp = await _service.GetAllMajors();
+            return Ok(resp);
+        }
+        [HttpDelete]
+        [Route("delete/list")]
+        public async Task<ActionResult<IEnumerable<DeleteListResponse>>> DeleteMajors([FromBody] DeleteListRequest list)
+        {
+            var resp = await _service.DeleteMultipleMajors(list.DeleteList);
             return Ok(resp);
         }
 

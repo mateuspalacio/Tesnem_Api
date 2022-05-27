@@ -52,6 +52,8 @@ namespace Tesnem.Api.Controllers
             var resp = await _service.GetAllCourses();
             return Ok(resp);
         }
+        [HttpDelete]
+        [Route("delete/list")]
         public async Task<ActionResult<IEnumerable<DeleteListResponse>>> DeleteCourses([FromBody] DeleteListRequest list)
         {
             var resp = await _service.DeleteMultipleCourses(list.DeleteList);

@@ -53,5 +53,26 @@ namespace Tesnem.Api.Services.Services
                 throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             return _mapper.Map<MajorResponse>(resp);
         }
+        public async Task<IEnumerable<MajorResponse>> GetAllMajors()
+        {
+            var resp = await _rep.Students.GetAllStudents();
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+            return _mapper.Map<IEnumerable<MajorResponse>>(resp);
+        }
+        public async Task<IEnumerable<Guid>> DeleteMultipleMajors(List<Guid> majorIds)
+        {
+            List<Guid> deletedWithSuccess = new List<Guid>();
+            foreach (Guid id in majorIds)
+            {
+                var major = await _rep.Majors.GetById(id);
+                if (major == null)
+                    continue;
+                await _rep.Majors.Delete(major);
+                deletedWithSuccess.Add(id);
+            }
+            return deletedWithSuccess;
+        }
+
     }
 }
