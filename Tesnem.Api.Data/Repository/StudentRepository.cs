@@ -22,10 +22,10 @@ namespace Tesnem.Api.Data.Repository
         {
             var students = _appDbContext.Students
                 .Include(e => e.Classes)
-                .Include(e => e.CoursesCompleted)
+                .Include(x => x.CoursesCompletedId)
                 .Include(e => e.CoursesCurrent)
                 .Include(e => e.Enrollment)
-                .Include(e => e.ProgramMajor);
+                .Include(e => e.ProgramMajor).ToList();
             return students;
         }
 

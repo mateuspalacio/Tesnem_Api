@@ -19,6 +19,7 @@ namespace Tesnem.Api.Data
         public DbSet<Class> Classes { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<PastCourses> PastCourses { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<ProgramMajor> Majors { get; set; }

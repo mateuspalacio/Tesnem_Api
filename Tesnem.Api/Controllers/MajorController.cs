@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO;
@@ -8,6 +9,7 @@ namespace Tesnem.Api.Controllers
 {
     [Route("[controller]/")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class MajorController : ControllerBase
     {
         private readonly IMajorService _service;

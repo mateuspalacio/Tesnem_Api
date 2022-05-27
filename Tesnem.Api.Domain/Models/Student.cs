@@ -12,8 +12,7 @@ namespace Tesnem.Api.Domain.Models
     public class Student : Person
     {
         public List<Course> CoursesCurrent { get; set; }
-        [NotMapped]
-        public List<Course> CoursesCompleted { get; set; }
+        public List<PastCourses> CoursesCompletedId { get; set; }
         public List<Class> Classes { get; set; }
         public DateTime ConclusionDate { get; set; }
         public ProgramMajor ProgramMajor { get; set; }

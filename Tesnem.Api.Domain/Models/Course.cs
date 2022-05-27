@@ -25,5 +25,6 @@ namespace Tesnem.Api.Domain.Models
         public ProgramMajor Program { get; set; }
         [ForeignKey("Program")]
         public Guid Program_Id { get; set; }
+        public bool IsActive { get; set; }
     }
 }
