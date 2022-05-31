@@ -26,7 +26,10 @@ namespace Tesnem.Api.Services.Services
         {
             var clas = _mapper.Map<Class>(classroom);
             var resp = await _rep.Classes.Add(clas);
-            return _mapper.Map<ClassResponse>(resp);
+            var response = _mapper.Map<ClassResponse>(resp);
+            response.Students = await _rep.Students.GetAllStudentsByClass(resp.Id);
+            response.Professor = await _rep.Professors.GetById(resp.Professor_Id);
+            return response;
         }
 
         public async Task DeleteClass(Guid id)
