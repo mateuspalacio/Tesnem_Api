@@ -12,6 +12,6 @@ namespace Tesnem.Api.Domain.Repository
         Task<IEnumerable<Student>> GetAllStudents();
         Task<IEnumerable<Student>> GetAllStudentsByClass(Guid classId);
         Task<IEnumerable<Student>> GetAllStudentsByCourse(Guid courseId);
-
+        Task<IEnumerable<Student>> GetAllStudentsByMajor(Guid majorId);
     }
 }

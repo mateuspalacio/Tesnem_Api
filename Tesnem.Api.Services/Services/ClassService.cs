@@ -69,6 +69,13 @@ namespace Tesnem.Api.Services.Services
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
         }
+        public async Task<ClassResponse> GetClassByCourseId(Guid courseId)
+        {
+            var resp = await _rep.Classes.GetByCourseId(courseId);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, courseId);
+            return _mapper.Map<ClassResponse>(resp);
+        }
 
         public async Task<ClassResponse> UpdateClass(Guid id, ClassRequest classroom)
         {

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Class>> GetAllClasses()
         {
-            var classes = _appDbContext.Classes;
+            var classes = _appDbContext.Classes.ToList();
             return classes;
         }
 
@@ -43,12 +45,18 @@ namespace Tesnem.Api.Data.Repository
         //    await _appDbContext.SaveChangesAsync();
         //}
 
-        //async public Task<Class> GetClassById(Guid id)
-        //{
-        //    var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Id == id);
+        async override public Task<Class> GetById(Guid id)
+        {
+           var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Id == id);
 
-        //    return classroom;
-        //}
+            return classroom;
+        }
+        async public Task<Class> GetByCourseId(Guid courseId)
+        {
+            var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Course_Id == courseId);
+
+            return classroom;
+        }
 
         //public async Task<Class> UpdateClass(Guid id, Class classroom)
         //{

@@ -42,7 +42,7 @@ namespace Tesnem.Api.Services.Services
             var resp = await _rep.Majors.GetById(id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
-            return _mapper.Map<MajorResponse>(resp);
+            return _mapper.Map<MajorResponse>(resp); ;
         }
 
         public async Task<MajorResponse> UpdateMajor(Guid id, MajorRequest major)

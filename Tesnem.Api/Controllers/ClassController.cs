@@ -48,6 +48,13 @@ namespace Tesnem.Api.Controllers
             var resp = await _service.GetClassById(id);
             return Ok(resp);
         }
+        [HttpGet]
+        [Route("get/course/{id}")]
+        public async Task<IActionResult> GetClassByCourse([FromRoute] Guid courseId)
+        {
+            var resp = await _service.GetClassByCourseId(courseId);
+            return Ok(resp);
+        }
         [HttpDelete]
         [Route("delete/list")]
         public async Task<ActionResult<IEnumerable<DeleteListResponse>>> DeleteClasses([FromBody] DeleteListRequest list)

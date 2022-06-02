@@ -40,5 +40,11 @@ namespace Tesnem.Api.Data.Repository
             var students = _appDbContext.Students.Where(x => x.CoursesCurrent.Any(y => y.Id == courseId));
             return students;
         }
+
+        public async Task<IEnumerable<Student>> GetAllStudentsByMajor(Guid majorId)
+        {
+            var students = _appDbContext.Students.Where(x => x.ProgramMajor.Id == majorId);
+            return students;
+        }
     }
 }

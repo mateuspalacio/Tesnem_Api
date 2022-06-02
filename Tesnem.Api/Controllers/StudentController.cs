@@ -63,6 +63,13 @@ namespace Tesnem.Api.Controllers
             return Ok(resp);
         }
         [HttpGet]
+        [Route("get/all/major/{majorId}")]
+        public async Task<ActionResult<IEnumerable<StudentResponse>>> GetStudentsByMajor([FromRoute] Guid majorId)
+        {
+            var resp = await _service.GetAllStudentsByMajor(majorId);
+            return Ok(resp);
+        }
+        [HttpGet]
         [Route("get/all/class/{classId}")]
         public async Task<ActionResult<IEnumerable<StudentResponse>>> GetStudentsByClass([FromRoute] Guid classId)
         {
