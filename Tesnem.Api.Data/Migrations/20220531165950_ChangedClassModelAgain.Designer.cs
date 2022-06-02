@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tesnem.Api.Data;
 
@@ -10,9 +11,10 @@ using Tesnem.Api.Data;
 namespace Tesnem.Api.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220531165950_ChangedClassModelAgain")]
+    partial class ChangedClassModelAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,17 +87,11 @@ namespace Tesnem.Api.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("CourseId")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("Course_Id")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("Days")
                         .HasColumnType("int");
-
-                    b.Property<Guid?>("ProfessorId")
-                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("Professor_Id")
                         .HasColumnType("char(36)");
@@ -105,9 +101,9 @@ namespace Tesnem.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("Course_Id");
 
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("Professor_Id");
 
                     b.HasIndex("StudentId");
 
@@ -395,17 +391,25 @@ namespace Tesnem.Api.Data.Migrations
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Class", b =>
                 {
-                    b.HasOne("Tesnem.Api.Domain.Models.Course", null)
+                    b.HasOne("Tesnem.Api.Domain.Models.Course", "Course")
                         .WithMany("Classes")
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("Course_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Tesnem.Api.Domain.Models.Professor", null)
+                    b.HasOne("Tesnem.Api.Domain.Models.Professor", "Professor")
                         .WithMany("TeacherOfClasses")
-                        .HasForeignKey("ProfessorId");
+                        .HasForeignKey("Professor_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Tesnem.Api.Domain.Models.Student", null)
                         .WithMany("Classes")
                         .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Professor");
                 });
 
             modelBuilder.Entity("Tesnem.Api.Domain.Models.Course", b =>

@@ -11,7 +11,7 @@ namespace Tesnem.Api.Domain.Repository
     public class ClassResponse
     {
         public Guid Id { get; set; }
-        public List<Student> Students { get; set; }
+        public IEnumerable<Student> Students { get; set; }
         public Professor Professor { get; set; }
         public Course Course { get; set; }
         public Guid Course_Id { get; set; }

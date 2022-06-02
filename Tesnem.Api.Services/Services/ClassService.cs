@@ -26,7 +26,10 @@ namespace Tesnem.Api.Services.Services
         {
             var clas = _mapper.Map<Class>(classroom);
             var resp = await _rep.Classes.Add(clas);
-            return _mapper.Map<ClassResponse>(resp);
+            var response = _mapper.Map<ClassResponse>(resp);
+            response.Students = await _rep.Students.GetAllStudentsByClass(resp.Id);
+            response.Professor = await _rep.Professors.GetById(resp.Professor_Id);
+            return response;
         }
 
         public async Task DeleteClass(Guid id)
@@ -37,11 +40,40 @@ namespace Tesnem.Api.Services.Services
             await _rep.Classes.Delete(resp);
         }
 
+        public async Task<IEnumerable<Guid>> DeleteMultipleClasses(List<Guid> classesIds)
+        {
+            List<Guid> deletedWithSuccess = new List<Guid>();
+            foreach (Guid id in classesIds)
+            {
+                var deleteClass = await _rep.Classes.GetById(id);
+                if (deleteClass == null)
+                    continue;
+                await _rep.Classes.Delete(deleteClass);
+                deletedWithSuccess.Add(id);
+            }
+            return deletedWithSuccess;
+        }
+
+        public async Task<IEnumerable<ClassResponse>> GetAllClasses()
+        {
+            var resp = await _rep.Classes.GetAllClasses();
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+            return _mapper.Map<IEnumerable<ClassResponse>>(resp);
+        }
+
         public async Task<ClassResponse> GetClassById(Guid id)
         {
             var resp = await _rep.Classes.GetById(id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
+            return _mapper.Map<ClassResponse>(resp);
+        }
+        public async Task<ClassResponse> GetClassByCourseId(Guid courseId)
+        {
+            var resp = await _rep.Classes.GetByCourseId(courseId);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, courseId);
             return _mapper.Map<ClassResponse>(resp);
         }
 

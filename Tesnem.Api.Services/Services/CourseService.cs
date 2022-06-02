@@ -37,9 +37,39 @@ namespace Tesnem.Api.Services.Services
             await _rep.Courses.Delete(resp);
         }
 
+        public async Task<IEnumerable<Guid>> DeleteMultipleCourses(List<Guid> CourseIds)
+        {
+            List<Guid> deletedWithSuccess = new List<Guid>();
+            foreach (Guid id in CourseIds)
+            {
+                var course = await _rep.Courses.GetById(id);
+                if (course == null)
+                    continue;
+                await _rep.Courses.Delete(course);
+                deletedWithSuccess.Add(id);
+            }
+            return deletedWithSuccess;
+        }
+
+        public async Task<IEnumerable<CourseResponse>> GetAllCourses()
+        {
+            var resp = await _rep.Courses.GetAllCourses();
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+            return _mapper.Map<IEnumerable<CourseResponse>>(resp);
+        }
+
         public async Task<CourseResponse> GetCourseById(Guid id)
         {
             var resp = await _rep.Courses.GetById(id);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
+            return _mapper.Map<CourseResponse>(resp);
+        }
+
+        public async Task<CourseResponse> GetCourseByProgramId(Guid id)
+        {
+            var resp = await _rep.Courses.GetByProgramId(id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<CourseResponse>(resp);

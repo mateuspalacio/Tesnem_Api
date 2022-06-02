@@ -16,7 +16,7 @@ namespace Tesnem.Api.Data.Repository
             _context = context;
         }
 
-        public async Task<T> GetById(Guid id)
+        public virtual async Task<T> GetById(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

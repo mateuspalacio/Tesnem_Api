@@ -76,6 +76,13 @@ namespace Tesnem.Api.Services.Services
                 throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, courseId);
             return _mapper.Map<IEnumerable<StudentResponse>>(resp);
         }
+        public async Task<IEnumerable<StudentResponse>> GetAllStudentsByMajor(Guid majorId)
+        {
+            var resp = await _rep.Students.GetAllStudentsByMajor(majorId);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, majorId);
+            return _mapper.Map<IEnumerable<StudentResponse>>(resp);
+        }
 
         public async Task<StudentResponse> GetStudentById(Guid id)
         {

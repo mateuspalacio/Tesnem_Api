@@ -14,5 +14,7 @@ namespace Tesnem.Api.Domain.Services
         Task<MajorResponse> UpdateMajor(Guid id, MajorRequest major);
         Task DeleteMajor(Guid id);
         Task<MajorResponse> GetMajorById(Guid id);
+        Task<IEnumerable<Guid>> DeleteMultipleMajors(List<Guid> majorIds);
+        Task<IEnumerable<MajorResponse>> GetAllMajors();
     }
 }

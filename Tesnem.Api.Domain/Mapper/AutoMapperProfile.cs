@@ -8,6 +8,7 @@ using Tesnem.Api.Domain.Auth;
 using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO;
+using Tesnem.Api.Domain.DTO.ResponseDTO.SimpleDTO;
 using Tesnem.Api.Domain.Models;
 using Tesnem.Api.Domain.Repository;
 
@@ -27,6 +28,32 @@ namespace Tesnem.Api.Domain.Mapper
             CreateMap<Person, PersonRequest>().ReverseMap();
             CreateMap<ProgramMajor, MajorRequest>().ReverseMap();
             CreateMap<Class, ClassRequest>().ReverseMap();
+
+            // Simple mapping
+            CreateMap<ProgramMajor, SimpleMajor>().ReverseMap();
+
+            CreateMap<Course, SimpleCourse>()
+                .ForMember(
+                x => x.countClasses,
+                opt => opt.MapFrom(x => x.Classes.Count)
+                )
+                .ForMember(
+                x => x.countStudents,
+                opt => opt.MapFrom(x => x.Students.Count)
+                );
+
+            CreateMap<Class, SimpleClass>()
+                .ForMember(
+                    x => x.Id,
+                    opt => opt.MapFrom(x => x.Id)
+                );
+
+            CreateMap<CourseRequirement, SimpleCourseRequirement>()
+                .ForMember(
+                    x => x.id,
+                    opt => opt.MapFrom(x => x.Id)
+                );
+
 
             // Response mapping
             CreateMap<Course, CourseResponse>().ReverseMap();

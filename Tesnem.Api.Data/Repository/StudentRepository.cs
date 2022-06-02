@@ -22,10 +22,10 @@ namespace Tesnem.Api.Data.Repository
         {
             var students = _appDbContext.Students
                 .Include(e => e.Classes)
-                .Include(e => e.CoursesCompleted)
+                .Include(x => x.CoursesCompletedId)
                 .Include(e => e.CoursesCurrent)
                 .Include(e => e.Enrollment)
-                .Include(e => e.ProgramMajor);
+                .Include(e => e.ProgramMajor).ToList();
             return students;
         }
 
@@ -38,6 +38,12 @@ namespace Tesnem.Api.Data.Repository
         public async Task<IEnumerable<Student>> GetAllStudentsByCourse(Guid courseId)
         {
             var students = _appDbContext.Students.Where(x => x.CoursesCurrent.Any(y => y.Id == courseId));
+            return students;
+        }
+
+        public async Task<IEnumerable<Student>> GetAllStudentsByMajor(Guid majorId)
+        {
+            var students = _appDbContext.Students.Where(x => x.ProgramMajor.Id == majorId);
             return students;
         }
     }

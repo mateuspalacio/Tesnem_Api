@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Tesnem.Api.Domain.DTO;
 using Tesnem.Api.Domain.DTO.RequestDTO;
+using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.Models;
+using Tesnem.Api.Domain.Repository;
 using Tesnem.Api.Domain.Services;
 
 namespace Tesnem.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ClassController : ControllerBase
     {
         private readonly IClassService _service;
@@ -42,6 +46,27 @@ namespace Tesnem.Api.Controllers
         public async Task<IActionResult> GetClass([FromRoute] Guid id)
         {
             var resp = await _service.GetClassById(id);
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/course/{id}")]
+        public async Task<IActionResult> GetClassByCourse([FromRoute] Guid courseId)
+        {
+            var resp = await _service.GetClassByCourseId(courseId);
+            return Ok(resp);
+        }
+        [HttpDelete]
+        [Route("delete/list")]
+        public async Task<ActionResult<IEnumerable<DeleteListResponse>>> DeleteClasses([FromBody] DeleteListRequest list)
+        {
+            var resp = await _service.DeleteMultipleClasses(list.DeleteList);
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/all")]
+        public async Task<ActionResult<IEnumerable<ClassResponse>>> GetAllClasses()
+        {
+            var resp = await _service.GetAllClasses();
             return Ok(resp);
         }
     }

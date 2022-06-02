@@ -14,5 +14,8 @@ namespace Tesnem.Api.Domain.Services
         Task<CourseResponse> UpdateCourse(Guid id, CourseRequest course);
         Task DeleteCourse(Guid id);
         Task<CourseResponse> GetCourseById(Guid id);
+        Task<CourseResponse> GetCourseByProgramId(Guid ProgramId);
+        Task<IEnumerable<CourseResponse>> GetAllCourses();
+        Task<IEnumerable<Guid>> DeleteMultipleCourses(List<Guid> CourseIds);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,18 +20,14 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<Student> AddClasses(string enrollmentNumber, List<Guid> newClassesIds)
         {
-            var student = _appDbContext.Students.FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
-            if (student is not null)
-                student.Classes = _appDbContext.Classes.Where(x => x.Students.Contains(student)).ToList();
-            else
+            var student = _appDbContext.Students.Include(x => x.Classes).FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
+            if (student is null)
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, enrollmentNumber);
             foreach (var newClassId in newClassesIds)
             {
                 var classToAdd = _appDbContext.Classes.FirstOrDefault(x => x.Id == newClassId);
-                if (classToAdd.Students == null)
-                    classToAdd.Students = new List<Student>();
                 _appDbContext.Classes.Update(classToAdd);
-                if (student.Classes == null)
+                if (student.Classes is null)
                     student.Classes = new List<Class>();
                 if (student.Classes.Any(c =>c.Id == classToAdd.Id))
                     throw new ObjectAlredyPresentException(ExceptionMessages.StudentAlredyInClass, classToAdd.Id);
