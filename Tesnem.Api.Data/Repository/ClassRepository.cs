@@ -24,12 +24,7 @@ namespace Tesnem.Api.Data.Repository
         {
             var classes = _appDbContext.Classes
                 .Include(c => c.Tests)
-                .Include(c => c.Students)
                 .ToList();
-            foreach(var auxClass in classes)
-            {
-                auxClass.Students= _appDbContext.Students.Where(x => x.Classes.Contains(auxClass)).ToList();
-            }
             return classes;
         }
 
