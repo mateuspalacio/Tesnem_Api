@@ -22,7 +22,9 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Class>> GetAllClasses()
         {
-            var classes = _appDbContext.Classes.ToList();
+            var classes = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .ToList();
             return classes;
         }
 
@@ -47,13 +49,27 @@ namespace Tesnem.Api.Data.Repository
 
         async override public Task<Class> GetById(Guid id)
         {
-           var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Id == id);
+           var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .FirstOrDefault(x => x.Id == id);
 
             return classroom;
         }
         async public Task<Class> GetByCourseId(Guid courseId)
         {
-            var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Course_Id == courseId);
+            var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .FirstOrDefault(x => x.Course_Id == courseId);
+
+
+            return classroom;
+        }
+        async public Task<Class> GetByMajorId(Guid majorId)
+        {
+            var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .FirstOrDefault(x => x.Course_Id == majorId);
+
 
             return classroom;
         }

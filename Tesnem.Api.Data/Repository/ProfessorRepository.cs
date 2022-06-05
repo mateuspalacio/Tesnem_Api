@@ -33,7 +33,24 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Professor>> GetAllProfessorsByCourse(Guid courseId)
         {
-            var prof = _appDbContext.Professors.Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToList();
+            var prof = _appDbContext.Professors
+                 .Include(e => e.TeacherOfClasses)
+                .Include(e => e.TeacherOfCourses)
+                .Include(e => e.Data)
+                .Include(e => e.Enrollment)
+                .Include(e => e.Id)
+                .Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToList();
+            return prof;
+        }
+        async override public Task<Professor> GetById(Guid id)
+        {
+            var prof = _appDbContext.Professors
+                .Include(e => e.TeacherOfClasses)
+                .Include(e => e.TeacherOfCourses)
+                .Include(e => e.Data)
+                .Include(e => e.Enrollment)
+                .Include(e => e.Id)
+                .FirstOrDefault(x => x.Id == id);
             return prof;
         }
     }

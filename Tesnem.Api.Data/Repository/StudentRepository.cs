@@ -26,25 +26,86 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.CoursesCurrent)
                 .Include(e => e.Enrollment)
                 .Include(e => e.ProgramMajor).ToList();
+            foreach(var student in students)
+            {
+                foreach(var classroom in student.Classes)
+                {
+                    classroom.Tests = _appDbContext.Tests.Where(x => x.Student_Id == student.Id).ToList();
+                }
+            }
             return students;
         }
 
         public async Task<IEnumerable<Student>> GetAllStudentsByClass(Guid classId)
         {
-            var students = _appDbContext.Students.Where(x => x.Classes.Any(y => y.Id == classId));
+            var students = _appDbContext.Students
+                 .Include(e => e.Classes)
+                .Include(x => x.CoursesCompletedId)
+                .Include(e => e.CoursesCurrent)
+                .Include(e => e.Enrollment)
+                .Include(e => e.ProgramMajor)
+                .Where(x => x.Classes.Any(y => y.Id == classId));
+            foreach (var student in students)
+            {
+                foreach (var classroom in student.Classes)
+                {
+                    classroom.Tests = _appDbContext.Tests.Where(x => x.Student_Id == student.Id).ToList();
+                }
+            }
             return students;
         }
 
         public async Task<IEnumerable<Student>> GetAllStudentsByCourse(Guid courseId)
         {
-            var students = _appDbContext.Students.Where(x => x.CoursesCurrent.Any(y => y.Id == courseId));
+            var students = _appDbContext.Students
+                .Include(e => e.Classes)
+                .Include(x => x.CoursesCompletedId)
+                .Include(e => e.CoursesCurrent)
+                .Include(e => e.Enrollment)
+                .Include(e => e.ProgramMajor)
+                .Where(x => x.CoursesCurrent.Any(y => y.Id == courseId));
+            foreach (var student in students)
+            {
+                foreach (var classroom in student.Classes)
+                {
+                    classroom.Tests = _appDbContext.Tests.Where(x => x.Student_Id == student.Id).ToList();
+                }
+            }
             return students;
         }
 
         public async Task<IEnumerable<Student>> GetAllStudentsByMajor(Guid majorId)
         {
-            var students = _appDbContext.Students.Where(x => x.ProgramMajor.Id == majorId);
+            var students = _appDbContext.Students
+                .Include(e => e.Classes)
+                .Include(x => x.CoursesCompletedId)
+                .Include(e => e.CoursesCurrent)
+                .Include(e => e.Enrollment)
+                .Include(e => e.ProgramMajor)
+                .Where(x => x.ProgramMajor.Id == majorId);
+            foreach (var student in students)
+            {
+                foreach (var classroom in student.Classes)
+                {
+                    classroom.Tests = _appDbContext.Tests.Where(x => x.Student_Id == student.Id).ToList();
+                }
+            }
             return students;
+        }
+        public async override Task<Student> GetById(Guid id)
+        {
+            var student = _appDbContext.Students
+                .Include(e => e.Classes)
+                .Include(x => x.CoursesCompletedId)
+                .Include(e => e.CoursesCurrent)
+                .Include(e => e.Enrollment)
+                .Include(e => e.ProgramMajor)
+                .FirstOrDefault(x => x.Id == id);
+            foreach (var classroom in student.Classes)
+            {
+                classroom.Tests = _appDbContext.Tests.Where(x => x.Student_Id == student.Id).ToList();
+            }
+            return student;
         }
     }
 }

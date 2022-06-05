@@ -27,8 +27,6 @@ namespace Tesnem.Api.Services.Services
             var clas = _mapper.Map<Class>(classroom);
             var resp = await _rep.Classes.Add(clas);
             var response = _mapper.Map<ClassResponse>(resp);
-            response.Students = await _rep.Students.GetAllStudentsByClass(resp.Id);
-            response.Professor = await _rep.Professors.GetById(resp.Professor_Id);
             return response;
         }
 
@@ -83,6 +81,14 @@ namespace Tesnem.Api.Services.Services
             var resp = await _rep.Classes.Update(id, clas);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
+            return _mapper.Map<ClassResponse>(resp);
+        }
+
+        public async Task<ClassResponse> GetClassByMajorId(Guid Id)
+        {
+            var resp = await _rep.Classes.GetByMajorId(Id);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, Id);
             return _mapper.Map<ClassResponse>(resp);
         }
     }

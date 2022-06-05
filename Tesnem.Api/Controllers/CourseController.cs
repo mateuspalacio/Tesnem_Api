@@ -48,7 +48,7 @@ namespace Tesnem.Api.Controllers
             return Ok(resp);
         }
         [HttpGet]
-        [Route("get/Major/{id}")]
+        [Route("get/major/{id}")]
         public async Task<IActionResult> GetCourseByProgramId([FromRoute] Guid id)
         {
             var resp = await _service.GetCourseByProgramId(id);
