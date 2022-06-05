@@ -10,6 +10,5 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO.SimpleDTO
     {
         public string Name { get; set; }
         public Guid Id { get; set; }
-        public List<SimpleTest> Tests { get; set;}
     }
 }

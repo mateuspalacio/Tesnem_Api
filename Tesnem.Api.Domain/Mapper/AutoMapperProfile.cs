@@ -48,12 +48,6 @@ namespace Tesnem.Api.Domain.Mapper
                     opt => opt.MapFrom(x => x.Id)
                 );
 
-            CreateMap<CourseRequirement, SimpleCourseRequirement>()
-                .ForMember(
-                    x => x.id,
-                    opt => opt.MapFrom(x => x.Id)
-                );
-
 
             // Response mapping
             CreateMap<Course, CourseResponse>().ReverseMap();

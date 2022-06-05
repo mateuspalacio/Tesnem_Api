@@ -13,9 +13,8 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO
         public Guid Id { get; set; }
         public string Name { get; set; }
         public SimpleMajor Major { get; set; }
-        //public List<Student> Students { get; set; }
-        //public List<Professor> Professors { get; set; }
+        public List<SimpleStudent> Students { get; set; }
         public List<SimpleClass> Classes { get; set; }
-        public List<SimpleCourseRequirement> Requirements { get; set; }
+        public List<CourseRequirementResponse> Requirements { get; set; }
     }
 }

@@ -11,5 +11,8 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO.SimpleDTO
     {
         public AV Av { get; set; }
         public double Grade { get; set; }
+        public Guid Student_Id { get; set; }
+        public Guid ClassId { get; set; }
+        public Guid CourseId { get; set; }
     }
 }
