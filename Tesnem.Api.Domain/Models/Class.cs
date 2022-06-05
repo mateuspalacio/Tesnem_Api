@@ -16,8 +16,6 @@ namespace Tesnem.Api.Domain.Models
         public Guid Professor_Id { get; set; }
         [ForeignKey("Course")]
         public Guid Course_Id { get; set; }
-
-        public IEnumerable<Student> Students { get; set; }
         public List<Test> Tests { get; set; }
         public Days Days { get; set; }
     }

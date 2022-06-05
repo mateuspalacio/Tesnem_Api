@@ -56,9 +56,7 @@ namespace Tesnem.Api.Data.Repository
         {
            var classroom = _appDbContext.Classes
                 .Include(c => c.Tests)
-                .Include(c => c.Students)
                 .FirstOrDefault(x => x.Id == id);
-            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
 
             return classroom;
         }
@@ -66,10 +64,8 @@ namespace Tesnem.Api.Data.Repository
         {
             var classroom = _appDbContext.Classes
                 .Include(c => c.Tests)
-                .Include(c => c.Students)
                 .FirstOrDefault(x => x.Course_Id == courseId);
 
-            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
 
             return classroom;
         }
@@ -77,10 +73,8 @@ namespace Tesnem.Api.Data.Repository
         {
             var classroom = _appDbContext.Classes
                 .Include(c => c.Tests)
-                .Include(c => c.Students)
                 .FirstOrDefault(x => x.Course_Id == majorId);
 
-            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
 
             return classroom;
         }
