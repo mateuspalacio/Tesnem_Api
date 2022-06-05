@@ -83,5 +83,13 @@ namespace Tesnem.Api.Services.Services
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
         }
+
+        public async Task<ClassResponse> GetClassByMajorId(Guid Id)
+        {
+            var resp = await _rep.Classes.GetByMajorId(Id);
+            if (resp is null)
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, Id);
+            return _mapper.Map<ClassResponse>(resp);
+        }
     }
 }

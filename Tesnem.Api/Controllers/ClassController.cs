@@ -50,9 +50,16 @@ namespace Tesnem.Api.Controllers
         }
         [HttpGet]
         [Route("get/course/{id}")]
-        public async Task<IActionResult> GetClassByCourse([FromRoute] Guid courseId)
+        public async Task<IActionResult> GetClassByCourse([FromRoute] Guid id)
         {
-            var resp = await _service.GetClassByCourseId(courseId);
+            var resp = await _service.GetClassByCourseId(id);
+            return Ok(resp);
+        }
+        [HttpGet]
+        [Route("get/major/{id}")]
+        public async Task<IActionResult> GetClassByMajor([FromRoute] Guid id)
+        {
+            var resp = await _service.GetClassByCourseId(id);
             return Ok(resp);
         }
         [HttpDelete]
