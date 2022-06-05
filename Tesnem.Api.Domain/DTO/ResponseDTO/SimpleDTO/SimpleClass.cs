@@ -12,6 +12,7 @@ namespace Tesnem.Api.Domain.DTO.ResponseDTO.SimpleDTO
         public Guid Id { get; set; }
         public Days Days { get; set; }
         public Guid Professor_Id { get; set; }
+        public Guid Course_Id { get; set; }
         public List<SimpleTest> Tests { get; set; }
         public List<SimpleStudent> Students { get; set; }
     }
