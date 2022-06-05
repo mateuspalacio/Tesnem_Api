@@ -22,7 +22,14 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Class>> GetAllClasses()
         {
-            var classes = _appDbContext.Classes.ToList();
+            var classes = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .Include(c => c.Students)
+                .ToList();
+            foreach(var auxClass in classes)
+            {
+                auxClass.Students= _appDbContext.Students.Where(x => x.Classes.Contains(auxClass)).ToList();
+            }
             return classes;
         }
 
@@ -47,13 +54,33 @@ namespace Tesnem.Api.Data.Repository
 
         async override public Task<Class> GetById(Guid id)
         {
-           var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Id == id);
+           var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .Include(c => c.Students)
+                .FirstOrDefault(x => x.Id == id);
+            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
 
             return classroom;
         }
         async public Task<Class> GetByCourseId(Guid courseId)
         {
-            var classroom = _appDbContext.Classes.FirstOrDefault(x => x.Course_Id == courseId);
+            var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .Include(c => c.Students)
+                .FirstOrDefault(x => x.Course_Id == courseId);
+
+            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
+
+            return classroom;
+        }
+        async public Task<Class> GetByMajorId(Guid majorId)
+        {
+            var classroom = _appDbContext.Classes
+                .Include(c => c.Tests)
+                .Include(c => c.Students)
+                .FirstOrDefault(x => x.Course_Id == majorId);
+
+            classroom.Students = _appDbContext.Students.Where(x => x.Classes.Contains(classroom)).ToList();
 
             return classroom;
         }

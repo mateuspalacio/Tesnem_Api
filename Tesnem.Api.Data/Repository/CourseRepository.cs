@@ -29,14 +29,14 @@ namespace Tesnem.Api.Data.Repository
                 .ToList();
             foreach (var course in Courses)
             {
-                ProgramMajor Program = _appDbContext.Majors.FirstOrDefault(x => x.Id == course.Program_Id);
-                course.Program = Program;
                 course.Classes = _appDbContext.Classes.Where(x=>x.Course_Id==course.Id).ToList();
-                /*foreach (var classAux in course.Classes)
+                foreach (var classAux in course.Classes)
                 {
                     classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
-                }*/
+                }
+                course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
             }
+
             return Courses;
         }
         public async override Task<Course> GetById(Guid id)
@@ -56,7 +56,7 @@ namespace Tesnem.Api.Data.Repository
             {
                 classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
             }
-
+            course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
             return course;
         }
         public async Task<Course> GetByProgramId(Guid programId)
@@ -76,6 +76,7 @@ namespace Tesnem.Api.Data.Repository
             {
                 classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
             }
+            course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
 
             return course;
         }
