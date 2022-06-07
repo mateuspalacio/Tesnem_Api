@@ -78,6 +78,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<CourseResponse> UpdateCourse(Guid id, CourseRequest course)
         {
             var cour = _mapper.Map<Course>(course);
+            cour.Id = id;
             var resp = await _rep.Courses.Update(id, cour);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);

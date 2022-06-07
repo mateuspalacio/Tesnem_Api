@@ -43,7 +43,7 @@ namespace Tesnem.Api.Data.Repository
         {
             var resp = _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
-            return entity;
+            return resp.Entity;
         }
     }
 }

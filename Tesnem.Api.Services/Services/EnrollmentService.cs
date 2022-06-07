@@ -54,6 +54,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<EnrollmentResponse> UpdateEnrollment(Guid id, EnrollmentRequest enrollment)
         {
             var enroll = _mapper.Map<Enrollment>(enrollment);
+            enroll.Id = id;
             var resp = await _rep.Enrollments.Update(id, enroll);
             if (resp == null)
                 throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, id);

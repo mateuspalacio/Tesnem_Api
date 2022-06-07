@@ -48,6 +48,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<MajorResponse> UpdateMajor(Guid id, MajorRequest major)
         {
             var maj = _mapper.Map<ProgramMajor>(major);
+            maj.Id = id;
             var resp = await _rep.Majors.Update(id, maj);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);

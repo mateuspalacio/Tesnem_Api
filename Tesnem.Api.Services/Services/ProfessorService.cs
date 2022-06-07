@@ -79,6 +79,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<ProfessorResponse> UpdateProfessor(Guid id, ProfessorRequest professor)
         {
             var prof = _mapper.Map<Professor>(professor);
+            prof.Id = id;
             var resp = await _rep.Professors.Update(id, prof);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);

@@ -95,6 +95,7 @@ namespace Tesnem.Api.Services.Services
         public async Task<StudentResponse> UpdateStudent(Guid id, StudentRequest student)
         {
             var stu = _mapper.Map<Student>(student);
+            stu.Id = id;
             var resp = await _rep.Students.Update(id, stu);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
