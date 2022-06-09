@@ -12,6 +12,7 @@ namespace Tesnem.Api.Domain.Models
     public class Class
     {
         public Guid Id { get; set; }
+        public string Code { get; set; }
         [ForeignKey("Professor")]
         public Guid Professor_Id { get; set; }
         [ForeignKey("Course")]
