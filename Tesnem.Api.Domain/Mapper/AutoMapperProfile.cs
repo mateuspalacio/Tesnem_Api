@@ -30,7 +30,15 @@ namespace Tesnem.Api.Domain.Mapper
             CreateMap<Class, ClassRequest>().ReverseMap();
 
             // Simple mapping
-            CreateMap<ProgramMajor, SimpleMajor>().ReverseMap();
+            CreateMap<ProgramMajor, SimpleMajor>()
+                .ForMember(
+                x => x.Id,
+                opt => opt.MapFrom(x => x.Id)
+                )
+                .ForMember(
+                x => x.Name,
+                opt => opt.MapFrom(x => x.Name)
+                ).ReverseMap();
 
             CreateMap<Course, SimpleCourse>()
                 .ForMember(
@@ -49,7 +57,12 @@ namespace Tesnem.Api.Domain.Mapper
 
 
             // Response mapping
-            CreateMap<Course, CourseResponse>().ReverseMap();
+            CreateMap<Course, CourseResponse>()
+                .ForMember(
+                    x => x.Major,
+                    opt => opt.MapFrom(x => x.Program)
+                )
+                .ReverseMap();
             CreateMap<Enrollment, EnrollmentResponse>().ReverseMap();
             CreateMap<Student, StudentResponse>().ReverseMap();
             CreateMap<Professor, ProfessorResponse>().ReverseMap();
