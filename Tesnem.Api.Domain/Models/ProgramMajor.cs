@@ -12,6 +12,6 @@ namespace Tesnem.Api.Domain.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public ProgramType Type { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<Course> Courses { get; set; } = new List<Course>();
     }
 }

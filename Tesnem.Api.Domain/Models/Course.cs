@@ -16,11 +16,11 @@ namespace Tesnem.Api.Domain.Models
         public Guid Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<Test> Tests { get; set; }
-        public List<CourseRequirement> Requirements { get; set; }
-        public List<Student> Students { get; set; }
-        public List<Professor> Professors { get; set; }
-        public List<Class> Classes { get; set; }
+        public List<Test> Tests { get; set; } = new List<Test>();
+        public List<CourseRequirement> Requirements { get; set; } = new List<CourseRequirement>();
+        public List<Student> Students { get; set; } = new List<Student>();
+        public List<Professor> Professors { get; set; } = new List<Professor>();
+        public List<Class> Classes { get; set; } = new List<Class>();
         [JsonIgnore]
         public ProgramMajor Program { get; set; }
         [ForeignKey("Program")]
