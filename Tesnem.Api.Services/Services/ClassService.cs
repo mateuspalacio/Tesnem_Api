@@ -25,6 +25,13 @@ namespace Tesnem.Api.Services.Services
         public async Task<ClassResponse> AddClass(ClassRequest classroom)
         {
             var clas = _mapper.Map<Class>(classroom);
+            clas.Course = await _rep.Courses.GetById(clas.Course.Id);
+            if (clas.Course.Name == null)
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, clas.Course.Id);
+            clas.Professor = await _rep.Professors.GetById(clas.Professor.Id);
+            if (clas.Professor.Name == null)
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, clas.Professor.Id);
+            clas.Code = MakeCodeForClass(clas.Course.Id);
             var resp = await _rep.Classes.Add(clas);
             var response = _mapper.Map<ClassResponse>(resp);
             return response;
@@ -91,6 +98,14 @@ namespace Tesnem.Api.Services.Services
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, Id);
             return _mapper.Map<ClassResponse>(resp);
+        }
+        private static string MakeCodeForClass(Guid CourseId)
+        {
+            Random rand = new Random();
+            const string pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var chars = Enumerable.Range(0, 5)
+                .Select(x => pool[rand.Next(0, pool.Length)]);
+            return new string(chars.ToArray() + CourseId.ToString().Substring(0, 3) + DateTime.Now.Day.ToString());
         }
     }
 }

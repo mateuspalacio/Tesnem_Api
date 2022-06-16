@@ -25,6 +25,11 @@ namespace Tesnem.Api.Services.Services
         public async Task<CourseResponse> AddCourse(CourseRequest course)
         {
             var cour = _mapper.Map<Course>(course);
+            cour.Program = await _rep.Majors.GetById(cour.Program.Id);
+            if (cour.Program.Name == null)
+            {
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, cour.Program.Id);
+            }
             var resp = await _rep.Courses.Add(cour);
             return _mapper.Map<CourseResponse>(resp);
         }
