@@ -8,7 +8,7 @@ namespace Tesnem.Api.Domain.Models
 {
     public class Professor : Person
     {
-        public List<Course> TeacherOfCourses { get; set; }
-        public List<Class> TeacherOfClasses { get; set; }
+        public List<Course> TeacherOfCourses { get; set; } = new List<Course>();
+        public List<Class> TeacherOfClasses { get; set; } = new List<Class>();
     }
 }

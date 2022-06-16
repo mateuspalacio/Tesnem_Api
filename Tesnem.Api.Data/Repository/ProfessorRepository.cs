@@ -26,8 +26,8 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .Include(e => e.Id)
                 .ToList();
+            Console.WriteLine(prof);
             return prof;
         }
 
@@ -38,7 +38,6 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .Include(e => e.Id)
                 .Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToList();
             return prof;
         }
@@ -49,7 +48,6 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .Include(e => e.Id)
                 .FirstOrDefault(x => x.Id == id);
             return prof;
         }
