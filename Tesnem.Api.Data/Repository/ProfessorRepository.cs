@@ -21,13 +21,12 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Professor>> GetAllProfessors()
         {
-            var prof = _appDbContext.Professors
+            var prof = await _appDbContext.Professors
                 .Include(e => e.TeacherOfClasses)
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .ToList();
-            Console.WriteLine(prof);
+                .ToListAsync();
             return prof;
         }
 
