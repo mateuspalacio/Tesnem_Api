@@ -19,6 +19,6 @@ namespace Tesnem.Api.Domain.Auth
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        public Guid Person_Id { get; set; }
+        public Guid PersonId { get; set; }
     }
 }

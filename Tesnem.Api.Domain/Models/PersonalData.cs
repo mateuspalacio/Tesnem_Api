@@ -13,7 +13,6 @@ namespace Tesnem.Api.Domain.Models
     public class PersonalData
     {
         public Guid Id { get; set; }
-        [ForeignKey("Person")]
         public Guid PersonId { get; set; }
         [Required]
         public string AddressStreet { get; set; }

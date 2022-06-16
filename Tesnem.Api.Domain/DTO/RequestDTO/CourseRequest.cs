@@ -10,6 +10,6 @@ namespace Tesnem.Api.Domain.DTO.RequestDTO
     {
        public string Name { get; set; }
        public CourseRequirementsRequest Requirement { get; set; }
-       public Guid Program_Id { get; set; }
+       public Guid ProgramId { get; set; }
     }
 }

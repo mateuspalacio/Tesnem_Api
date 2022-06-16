@@ -32,22 +32,22 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Professor>> GetAllProfessorsByCourse(Guid courseId)
         {
-            var prof = _appDbContext.Professors
+            var prof = await _appDbContext.Professors
                  .Include(e => e.TeacherOfClasses)
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToList();
+                .Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToListAsync();
             return prof;
         }
         async override public Task<Professor> GetById(Guid id)
         {
-            var prof = _appDbContext.Professors
+            var prof = await _appDbContext.Professors
                 .Include(e => e.TeacherOfClasses)
                 .Include(e => e.TeacherOfCourses)
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
             return prof;
         }
     }

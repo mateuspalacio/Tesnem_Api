@@ -26,7 +26,7 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 // Normal DB context + Identity context
 services.AddDbContext<AppDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
-services.AddDbContext<IdentityDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("TesnemContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
+services.AddDbContext<IdentityDbContext>(opt => opt.UseMySql(builder.Configuration.GetConnectionString("IdentityContext"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("TesnemContext"))));
 
 // Identity
 services.AddIdentity<User, IdentityRole>(opt =>

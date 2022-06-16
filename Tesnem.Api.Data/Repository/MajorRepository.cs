@@ -26,8 +26,8 @@ namespace Tesnem.Api.Data.Repository
             {
                 foreach (var course in major.Courses)
                 {
-                    course.Classes = _appDbContext.Classes.Where(x => x.Course_Id == course.Id).ToList();
-                    course.Students = _appDbContext.Students.Where(s => s.CoursesCurrent.Contains(course)).ToList();
+                    course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
+                    course.Students = await _appDbContext.Students.Where(s => s.CoursesCurrent.Contains(course)).ToListAsync();
                 }
             }
             return majors;
@@ -35,11 +35,11 @@ namespace Tesnem.Api.Data.Repository
         public override async Task<ProgramMajor> GetById(Guid id)
         {
             var major = await _appDbContext.Majors.FindAsync(id);
-            major.Courses = _appDbContext.Courses.Where(x => x.Program_Id == id).ToList();
+            major.Courses = await _appDbContext.Courses.Where(x => x.Program.Id == id).ToListAsync();
             foreach (var course in major.Courses)
             {
-                course.Classes = _appDbContext.Classes.Where(x => x.Course_Id == course.Id).ToList();
-                course.Students = _appDbContext.Students.Where(s => s.CoursesCurrent.Contains(course)).ToList();
+                course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
+                course.Students = await _appDbContext.Students.Where(s => s.CoursesCurrent.Contains(course)).ToListAsync();
             }
             return major;
         }

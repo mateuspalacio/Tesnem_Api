@@ -5,11 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tesnem.Api.Data.Migrations
 {
-    public partial class redone : Migration
+    public partial class ReMake : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CourseRequirement",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseRequirement", x => x.Id);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -28,20 +40,34 @@ namespace Tesnem.Api.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "PastCourses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CourseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PastCourses", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Program_Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    ProgramId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Majors_Program_Id",
-                        column: x => x.Program_Id,
+                        name: "FK_Courses_Majors_ProgramId",
+                        column: x => x.ProgramId,
                         principalTable: "Majors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -73,26 +99,53 @@ namespace Tesnem.Api.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "CourseCourseRequirement",
+                columns: table => new
+                {
+                    CoursesId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    RequirementsId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseCourseRequirement", x => new { x.CoursesId, x.RequirementsId });
+                    table.ForeignKey(
+                        name: "FK_CourseCourseRequirement_CourseRequirement_RequirementsId",
+                        column: x => x.RequirementsId,
+                        principalTable: "CourseRequirement",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseCourseRequirement_Courses_CoursesId",
+                        column: x => x.CoursesId,
+                        principalTable: "Courses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Classes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ProfessorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Course_Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Code = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfessorId1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CourseId1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Days = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Classes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Classes_Courses_Course_Id",
-                        column: x => x.Course_Id,
+                        name: "FK_Classes_Courses_CourseId1",
+                        column: x => x.CourseId1,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Classes_Person_ProfessorId",
-                        column: x => x.ProfessorId,
+                        name: "FK_Classes_Person_ProfessorId1",
+                        column: x => x.ProfessorId1,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -143,6 +196,52 @@ namespace Tesnem.Api.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CourseStudent_Person_StudentsId",
                         column: x => x.StudentsId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Enrollments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    PersonId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EnrollmentNumber = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enrollments_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PastCoursesStudent",
+                columns: table => new
+                {
+                    CoursesCompletedIdId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    StudentsWhoCompletedId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PastCoursesStudent", x => new { x.CoursesCompletedIdId, x.StudentsWhoCompletedId });
+                    table.ForeignKey(
+                        name: "FK_PastCoursesStudent_PastCourses_CoursesCompletedIdId",
+                        column: x => x.CoursesCompletedIdId,
+                        principalTable: "PastCourses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PastCoursesStudent_Person_StudentsWhoCompletedId",
+                        column: x => x.StudentsWhoCompletedId,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -217,26 +316,22 @@ namespace Tesnem.Api.Data.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Grade = table.Column<double>(type: "double", nullable: false),
                     Av = table.Column<int>(type: "int", nullable: false),
-                    Student_Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ClassId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    CourseId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                    StudentId1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ClassId1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CourseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tests_Classes_ClassId",
-                        column: x => x.ClassId,
+                        name: "FK_Tests_Classes_ClassId1",
+                        column: x => x.ClassId1,
                         principalTable: "Classes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tests_Courses_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "Courses",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Tests_Person_Student_Id",
-                        column: x => x.Student_Id,
+                        name: "FK_Tests_Person_StudentId1",
+                        column: x => x.StudentId1,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -244,14 +339,14 @@ namespace Tesnem.Api.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Classes_Course_Id",
+                name: "IX_Classes_CourseId1",
                 table: "Classes",
-                column: "Course_Id");
+                column: "CourseId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Classes_ProfessorId",
+                name: "IX_Classes_ProfessorId1",
                 table: "Classes",
-                column: "ProfessorId");
+                column: "ProfessorId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassStudent_StudentsId",
@@ -259,19 +354,35 @@ namespace Tesnem.Api.Data.Migrations
                 column: "StudentsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseCourseRequirement_RequirementsId",
+                table: "CourseCourseRequirement",
+                column: "RequirementsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseProfessor_TeacherOfCoursesId",
                 table: "CourseProfessor",
                 column: "TeacherOfCoursesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_Program_Id",
+                name: "IX_Courses_ProgramId",
                 table: "Courses",
-                column: "Program_Id");
+                column: "ProgramId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseStudent_StudentsId",
                 table: "CourseStudent",
                 column: "StudentsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enrollments_PersonId",
+                table: "Enrollments",
+                column: "PersonId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PastCoursesStudent_StudentsWhoCompletedId",
+                table: "PastCoursesStudent",
+                column: "StudentsWhoCompletedId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Person_ProgramMajorId",
@@ -285,19 +396,14 @@ namespace Tesnem.Api.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tests_ClassId",
+                name: "IX_Tests_ClassId1",
                 table: "Tests",
-                column: "ClassId");
+                column: "ClassId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tests_CourseId",
+                name: "IX_Tests_StudentId1",
                 table: "Tests",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tests_Student_Id",
-                table: "Tests",
-                column: "Student_Id");
+                column: "StudentId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -306,16 +412,31 @@ namespace Tesnem.Api.Data.Migrations
                 name: "ClassStudent");
 
             migrationBuilder.DropTable(
+                name: "CourseCourseRequirement");
+
+            migrationBuilder.DropTable(
                 name: "CourseProfessor");
 
             migrationBuilder.DropTable(
                 name: "CourseStudent");
 
             migrationBuilder.DropTable(
+                name: "Enrollments");
+
+            migrationBuilder.DropTable(
+                name: "PastCoursesStudent");
+
+            migrationBuilder.DropTable(
                 name: "PersonalData");
 
             migrationBuilder.DropTable(
                 name: "Tests");
+
+            migrationBuilder.DropTable(
+                name: "CourseRequirement");
+
+            migrationBuilder.DropTable(
+                name: "PastCourses");
 
             migrationBuilder.DropTable(
                 name: "Classes");

@@ -6,7 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<NoWarn>1701;1702;8618;8603;1998;8602;8601;8600;8604</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<NoWarn>1701;1702;8618;8603;1998;8602;8601;8600;8604</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\Tesnem.Api.Domain\Tesnem.Api.Domain.csproj" />
   </ItemGroup>
 
