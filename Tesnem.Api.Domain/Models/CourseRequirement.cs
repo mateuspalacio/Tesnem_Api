@@ -10,9 +10,8 @@ namespace Tesnem.Api.Domain.Models
 {
     public class CourseRequirement
     {
+        [Key]
         public Guid Id { get; set; }
-        [ForeignKey("Course")]
-        public  Guid CourseId { get; set; }
-        public List<Course> Requirements { get; set; }
+        public List<Course> Courses { get; set; }
     }
 }

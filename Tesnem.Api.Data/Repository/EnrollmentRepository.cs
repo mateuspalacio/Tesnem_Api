@@ -20,12 +20,12 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<Student> AddClasses(string enrollmentNumber, List<Guid> newClassesIds)
         {
-            var student = _appDbContext.Students.Include(x => x.Classes).FirstOrDefault(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
+            var student = await _appDbContext.Students.Include(x => x.Classes).FirstOrDefaultAsync(y => y.Enrollment.EnrollmentNumber == enrollmentNumber);
             if (student is null)
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, enrollmentNumber);
             foreach (var newClassId in newClassesIds)
             {
-                var classToAdd = _appDbContext.Classes.FirstOrDefault(x => x.Id == newClassId);
+                var classToAdd = await _appDbContext.Classes.FirstOrDefaultAsync(x => x.Id == newClassId);
                 _appDbContext.Classes.Update(classToAdd);
                 if (student.Classes is null)
                     student.Classes = new List<Class>();

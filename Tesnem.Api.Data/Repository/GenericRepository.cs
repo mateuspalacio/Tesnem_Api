@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return _context.Set<T>();
+            return await _context.Set<T>().ToListAsync();
         }
 
         public virtual async Task<T> Add(T entity)

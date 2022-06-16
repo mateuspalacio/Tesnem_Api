@@ -15,7 +15,7 @@ namespace Tesnem.Api.Domain.Repository
         public IEnumerable<SimpleStudent> Students { get; set; }
         public SimpleProfessor Professor { get; set; }
         public SimpleCourse Course { get; set; }
-        public Guid Course_Id { get; set; }
+        public Guid CourseId { get; set; }
         public List<SimpleTest> Tests { get; set; }
         public Days Days { get; set; }
     }

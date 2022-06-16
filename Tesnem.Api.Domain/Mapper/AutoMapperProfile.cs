@@ -57,8 +57,8 @@ namespace Tesnem.Api.Domain.Mapper
 
             CreateMap<Class, SimpleClass>()
                 .ForMember(
-                x => x.Professor_Id,
-                opt => opt.MapFrom(x => x.Professor_Id)
+                x => x.ProfessorId,
+                opt => opt.MapFrom(x => x.Professor.Id)
                 )
                 .ReverseMap();
             CreateMap<Professor, SimpleProfessor>().ReverseMap();

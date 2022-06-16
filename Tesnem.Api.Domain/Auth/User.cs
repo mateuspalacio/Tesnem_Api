@@ -13,8 +13,8 @@ namespace Tesnem.Api.Domain.Auth
     public class User : IdentityUser
     {
         [JsonIgnore]
-        [ForeignKey("Person_Id")]
+        [ForeignKey("PersonId")]
         public Person Person { get; set; }
-        public Guid Person_Id { get; set; }
+        public Guid PersonId { get; set; }
     }
 }

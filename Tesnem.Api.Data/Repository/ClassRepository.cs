@@ -22,85 +22,50 @@ namespace Tesnem.Api.Data.Repository
 
         public async Task<IEnumerable<Class>> GetAllClasses()
         {
-            var classes = _appDbContext.Classes
+            var classes = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .ToList();
+                .ToListAsync();
             return classes;
         }
 
-        //public async Task<Class> AddClass(Class classroom)
-        //{
-        //    classroom.Professor = _appDbContext.Professors.FirstOrDefault(x => x.Id == classroom.Professor.Id);
-        //    classroom.Course = _appDbContext.Courses.FirstOrDefault(x => x.Id == classroom.Course.Id);
-        //    var resp = await _appDbContext.Classes.AddAsync(classroom);
-        //    await _appDbContext.SaveChangesAsync();
-        //    return resp.Entity;
-        //}
-
-        //public async Task DeleteClass(Guid id)
-        //{
-        //    var delete = _appDbContext.Classes.FirstOrDefault(x => x.Id == id);
-        //    if (delete != null)
-        //        _appDbContext.Classes.Remove(delete);
-        //    else
-        //        throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
-        //    await _appDbContext.SaveChangesAsync();
-        //}
-
         async override public Task<Class> GetById(Guid id)
         {
-           var classroom = _appDbContext.Classes
+           var classroom = await _appDbContext.Classes
                 .Include(c => c.Course )
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return classroom;
         }
         async public Task<Class> GetByCourseId(Guid courseId)
         {
-            var classroom = _appDbContext.Classes
+            var classroom = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefault(x => x.Course_Id == courseId);
+                .FirstOrDefaultAsync(x => x.Course.Id == courseId);
 
 
             return classroom;
         }
         async public Task<Class> GetByMajorId(Guid majorId)
         {
-            var classroom = _appDbContext.Classes
+            var classroom = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefault(x => x.Course_Id == majorId);
+                .FirstOrDefaultAsync(x => x.Course.Id == majorId);
 
 
             return classroom;
         }
-
-        //public async Task<Class> UpdateClass(Guid id, Class classroom)
-        //{
-        //    var toUpdate = _appDbContext.Classes.FirstOrDefault(y => y.Id == id);
-        //    if (toUpdate != null)
-        //    {
-        //        toUpdate.Professor = _appDbContext.Professors.FirstOrDefault(x => x.Id == classroom.Professor.Id);
-        //        toUpdate.Course = _appDbContext.Courses.FirstOrDefault(x => x.Id == classroom.Course.Id);
-        //        toUpdate.Days = classroom.Days;
-        //        _appDbContext.Update(toUpdate);
-        //    }
-        //    else
-        //        throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
-        //    await _appDbContext.SaveChangesAsync();
-        //    return classroom;
-        //}
 
     }
 }

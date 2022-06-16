@@ -38,7 +38,7 @@ namespace Tesnem.Api.Controllers
                         throw new ErrorException(ExceptionMessages.BadRegisterRequestMessage, error.Description);
                     }
                 }
-            } catch (Exception ex)
+            } catch
             {
                 throw;
             }
@@ -64,7 +64,7 @@ namespace Tesnem.Api.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }
@@ -91,7 +91,7 @@ namespace Tesnem.Api.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw;
             }

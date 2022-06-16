@@ -16,9 +16,8 @@ namespace Tesnem.Api.Domain.Models
         public AV Av {  get; set; }
         [JsonIgnore]
         public Student Student { get; set; }
-        [ForeignKey("Student")]
-        public Guid Student_Id { get; set; }
-        public Guid ClassId { get; set; }
+        [JsonIgnore]
+        public Class Class { get; set; }
         public Guid CourseId { get; set; }
     }
 }

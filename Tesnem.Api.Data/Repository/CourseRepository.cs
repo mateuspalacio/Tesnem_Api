@@ -20,63 +20,63 @@ namespace Tesnem.Api.Data.Repository
         }
         public async Task<IEnumerable<Course>> GetAllCourses()
         {
-            var Courses = _appDbContext.Courses
+            var Courses = await _appDbContext.Courses
                 .Include(c => c.Program)
                 .Include(c => c.Students)
                 .Include(c => c.Professors)
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
-                .ToList();
+                .ToListAsync();
             foreach (var course in Courses)
             {
-                course.Classes = _appDbContext.Classes.Where(x=>x.Course_Id==course.Id).ToList();
+                course.Classes = await _appDbContext.Classes.Where(x=>x.Course.Id == course.Id).ToListAsync();
                 foreach (var classAux in course.Classes)
                 {
-                    classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
+                    classAux.Tests = await _appDbContext.Tests.Where(x => x.Class.Id == classAux.Id).ToListAsync();
                 }
-                course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
+                course.Students = await _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToListAsync();
             }
 
             return Courses;
         }
         public async override Task<Course> GetById(Guid id)
         {
-            var course = _appDbContext.Courses
+            var course = await _appDbContext.Courses
                 .Include(c => c.Program)
                 .Include(c => c.Students)
                 .Include(c => c.Professors)
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
-                .FirstOrDefault(x=> x.Id == id);
+                .FirstOrDefaultAsync(x=> x.Id == id);
             
-            ProgramMajor Program = _appDbContext.Majors.FirstOrDefault(x => x.Id == course.Program_Id);
+            ProgramMajor Program = await _appDbContext.Majors.FirstOrDefaultAsync(x => x.Id == course.Program.Id);
             course.Program = Program;
-            course.Classes = _appDbContext.Classes.Where(x => x.Course_Id == course.Id).ToList();
+            course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
             foreach(var classAux in course.Classes)
             {
-                classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
+                classAux.Tests = await _appDbContext.Tests.Where(x => x.Class.Id == classAux.Id).ToListAsync();
             }
-            course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
+            course.Students = await _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToListAsync();
             return course;
         }
         public async Task<Course> GetByProgramId(Guid programId)
         {
-            var course = _appDbContext.Courses
+            var course = await _appDbContext.Courses
                 .Include(c => c.Program)
                 .Include(c => c.Students)
                 .Include(c => c.Professors)
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
-                .FirstOrDefault(x => x.Program_Id == programId);
+                .FirstOrDefaultAsync(x => x.Program.Id == programId);
 
-            ProgramMajor Program = _appDbContext.Majors.FirstOrDefault(x => x.Id == course.Program_Id);
+            ProgramMajor Program = await _appDbContext.Majors.FirstOrDefaultAsync(x => x.Id == programId);
             course.Program = Program;
-            course.Classes = _appDbContext.Classes.Where(x => x.Course_Id == course.Id).ToList();
+            course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
             foreach (var classAux in course.Classes)
             {
-                classAux.Tests = _appDbContext.Tests.Where(x => x.ClassId == classAux.Id).ToList();
+                classAux.Tests = await _appDbContext.Tests.Where(x => x.Class.Id == classAux.Id).ToListAsync();
             }
-            course.Students = _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToList();
+            course.Students = await _appDbContext.Students.Where(x => x.CoursesCurrent.Contains(course)).ToListAsync();
 
             return course;
         }
