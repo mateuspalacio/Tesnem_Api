@@ -29,7 +29,8 @@ namespace Tesnem.Api.Middleware
                 {
                     var response = new Error() { };
                     response.Message = ex.Message;
-                    response.InnerException = ex.InnerException.Message;
+                    if(ex.InnerException != null)
+                        response.InnerException = ex.InnerException.Message;
                     response.StackTrace = ex.StackTrace;
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
