@@ -26,7 +26,7 @@ namespace Tesnem.Api.Data.Repository
             return _context.Set<T>();
         }
 
-        public async Task<T> Add(T entity)
+        public virtual async Task<T> Add(T entity)
         {
             var resp = await _context.Set<T>().AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -39,7 +39,7 @@ namespace Tesnem.Api.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<T> Update(Guid Id, T entity)
+        public virtual async Task<T> Update(Guid Id, T entity)
         {
             var resp = _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();

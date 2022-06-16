@@ -10,6 +10,6 @@ namespace Tesnem.Api.Domain.DTO.RequestDTO
 {
     public class StudentRequest : PersonRequest
     {
-        public MajorRequest ProgramMajor { get; set; }
+        public Guid MajorId { get; set; }
     }
 }

@@ -18,6 +18,27 @@ namespace Tesnem.Api.Data.Repository
             _appDbContext = appDbContext;
         }
 
+
+        public async override Task<Student> Add(Student student)
+        {
+            Guid id = student.ProgramMajor.Id;
+            student.ProgramMajor = _appDbContext.Majors.FirstOrDefault(x => x.Id == student.ProgramMajor.Id);
+            if (student.ProgramMajor is null)
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
+            var resp = await _context.Set<Student>().AddAsync(student);
+            await _context.SaveChangesAsync();
+            return student;
+        }
+        public async override Task<Student> Update(Guid Id, Student student)
+        {
+            Guid id = student.ProgramMajor.Id;
+            student.ProgramMajor = _appDbContext.Majors.FirstOrDefault(x => x.Id == student.ProgramMajor.Id);
+            if (student.ProgramMajor is null)
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
+            var resp = _appDbContext.Students.Update(student);
+            await _context.SaveChangesAsync();
+            return resp.Entity;
+        }
         public async Task<IEnumerable<Student>> GetAllStudents()
         {
             var students = _appDbContext.Students
