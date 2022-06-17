@@ -44,6 +44,7 @@ namespace Tesnem.Api.Data.Repository
         {
             var students = await _appDbContext.Students
                 .Include(e => e.Classes)
+                .Include(e => e.Data)
                 .Include(x => x.CoursesCompletedId)
                 .Include(e => e.CoursesCurrent)
                 .Include(e => e.Enrollment)
