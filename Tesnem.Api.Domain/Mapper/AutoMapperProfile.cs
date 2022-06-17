@@ -71,9 +71,13 @@ namespace Tesnem.Api.Domain.Mapper
                 .ForMember(
                     x => x.Major,
                     opt => opt.MapFrom(x => x.Program)
+                ).ForMember(
+                    x => x.Requirements,
+                    opt => opt.MapFrom(x => x.Requirements)
                 )
                 .ReverseMap();
             CreateMap<Enrollment, EnrollmentResponse>().ReverseMap();
+            CreateMap<CourseRequirement, CourseRequirementResponse>().ReverseMap();
             CreateMap<Student, StudentResponse>().ReverseMap();
             CreateMap<Professor, ProfessorResponse>().ReverseMap();
             CreateMap<PersonalData, PersonalDataResponse>().ReverseMap();

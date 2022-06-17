@@ -29,7 +29,7 @@ namespace Tesnem.Api.Data.Repository
             await _context.SaveChangesAsync();
             return student;
         }
-        public async override Task<Student> Update(Guid Id, Student student)
+        public async override Task<Student> Update(Student student)
         {
             Guid id = student.ProgramMajor.Id;
             student.ProgramMajor = _appDbContext.Majors.FirstOrDefault(x => x.Id == student.ProgramMajor.Id);
@@ -116,6 +116,7 @@ namespace Tesnem.Api.Data.Repository
         public async override Task<Student> GetById(Guid id)
         {
             var student = await _appDbContext.Students
+                .Include(x => x.Data)
                 .Include(e => e.Classes)
                 .Include(x => x.CoursesCompletedId)
                 .Include(e => e.CoursesCurrent)

@@ -14,6 +14,7 @@ namespace Tesnem.Api.Domain.Repository
         IMajorRepository Majors { get; }
         IProfessorRepository Professors { get; }
         IStudentRepository Students { get; }
+        IPersonalDataRepository PersonalData { get; }
         int Complete();
     }
 }

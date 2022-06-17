@@ -26,10 +26,10 @@ namespace Tesnem.Api.Services.Services
         {
             var clas = _mapper.Map<Class>(classroom);
             clas.Course = await _rep.Courses.GetById(clas.Course.Id);
-            if (clas.Course.Name == null)
+            if (string.IsNullOrEmpty(clas.Course.Name))
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, clas.Course.Id);
             clas.Professor = await _rep.Professors.GetById(clas.Professor.Id);
-            if (clas.Professor.Name == null)
+            if (string.IsNullOrEmpty(clas.Professor.Name))
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, clas.Professor.Id);
             clas.Code = MakeCodeForClass(clas.Course.Id);
             var resp = await _rep.Classes.Add(clas);
@@ -86,7 +86,13 @@ namespace Tesnem.Api.Services.Services
         {
             var clas = _mapper.Map<Class>(classroom);
             clas.Id = id;
-            var resp = await _rep.Classes.Update(id, clas);
+            clas.Professor = await _rep.Professors.GetById(classroom.ProfessorId);
+            if(string.IsNullOrEmpty(clas.Professor.Name))
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, clas.Professor.Id);
+            clas.Course = await _rep.Courses.GetById(classroom.CourseId);
+            if (string.IsNullOrEmpty(clas.Course.Name))
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, clas.Course.Id);
+            var resp = await _rep.Classes.Update(clas);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);

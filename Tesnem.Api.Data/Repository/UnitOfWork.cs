@@ -24,7 +24,9 @@ namespace Tesnem.Api.Data.Repository
 
         public IStudentRepository Students { get; }
 
-        public UnitOfWork(AppDbContext dbContext, IClassRepository classRepository, ICourseRepository courseRepository, IEnrollmentRepository enrollmentRepository, IMajorRepository majorRepository, IProfessorRepository professorRepository, IStudentRepository studentRepository)
+        public IPersonalDataRepository PersonalData { get; }
+
+        public UnitOfWork(AppDbContext dbContext, IClassRepository classRepository, ICourseRepository courseRepository, IEnrollmentRepository enrollmentRepository, IMajorRepository majorRepository, IProfessorRepository professorRepository, IStudentRepository studentRepository, IPersonalDataRepository personalData)
         {
             _appDbContext = dbContext;
             Classes = classRepository;
@@ -33,6 +35,7 @@ namespace Tesnem.Api.Data.Repository
             Majors = majorRepository;
             Professors = professorRepository;
             Students = studentRepository;
+            PersonalData = personalData;
         }
 
         public int Complete()

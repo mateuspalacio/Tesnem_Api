@@ -16,6 +16,6 @@ namespace Tesnem.Api.Domain.Models
         public PersonalData Data { get; set; }
         public Enrollment Enrollment { get; set; }
 
-        private string Registration = DateTime.Now.Date.ToString() + DateTime.Now.Millisecond + new Random().Next(1000000, 9999999) + DateTime.Now.AddMilliseconds(new Random().Next(100));
+        public string Registration = DateTime.Now.Date.ToString() + DateTime.Now.Millisecond + new Random().Next(1000000, 9999999) + DateTime.Now.AddMilliseconds(new Random().Next(100));
     }
 }

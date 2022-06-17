@@ -84,7 +84,16 @@ namespace Tesnem.Api.Services.Services
         {
             var cour = _mapper.Map<Course>(course);
             cour.Id = id;
-            var resp = await _rep.Courses.Update(id, cour);
+            cour.Program = await _rep.Majors.GetById(course.ProgramId);
+            var courseReqs = new List<Course>();
+            foreach (var req in course.Requirement.Requirements)
+                courseReqs.Add(await _rep.Courses.GetById(req));
+            cour.Requirements.Add(new CourseRequirement()
+            {
+                Courses = courseReqs,
+                Id = Guid.NewGuid()
+            });
+            var resp = await _rep.Courses.Update(cour);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<CourseResponse>(resp);

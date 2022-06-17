@@ -80,7 +80,7 @@ namespace Tesnem.Api.Services.Services
         {
             var prof = _mapper.Map<Professor>(professor);
             prof.Id = id;
-            var resp = await _rep.Professors.Update(id, prof);
+            var resp = await _rep.Professors.Update(prof);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
             return _mapper.Map<ProfessorResponse>(resp);

@@ -55,7 +55,7 @@ namespace Tesnem.Api.Services.Services
         {
             var enroll = _mapper.Map<Enrollment>(enrollment);
             enroll.Id = id;
-            var resp = await _rep.Enrollments.Update(id, enroll);
+            var resp = await _rep.Enrollments.Update(enroll);
             if (resp == null)
                 throw new NotFoundException(ExceptionMessages.EnrollmentNotFoundMessage, id);
             return _mapper.Map<EnrollmentResponse>(resp);

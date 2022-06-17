@@ -68,6 +68,7 @@ services.AddScoped<IClassService, ClassService>();
 services.AddScoped<ICourseService, CourseService>();
 services.AddScoped<IProfessorService, ProfessorService>();
 services.AddScoped<IMajorService, MajorService>();
+services.AddScoped<IPersonalDataRepository, PersonalDataRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -40,7 +40,7 @@ namespace Tesnem.Api.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task<T> Update(Guid Id, T entity)
+        public virtual async Task<T> Update(T entity)
         {
             var resp = _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();

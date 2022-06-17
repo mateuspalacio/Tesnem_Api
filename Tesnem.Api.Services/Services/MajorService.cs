@@ -49,7 +49,7 @@ namespace Tesnem.Api.Services.Services
         {
             var maj = _mapper.Map<ProgramMajor>(major);
             maj.Id = id;
-            var resp = await _rep.Majors.Update(id, maj);
+            var resp = await _rep.Majors.Update(maj);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
             return _mapper.Map<MajorResponse>(resp);

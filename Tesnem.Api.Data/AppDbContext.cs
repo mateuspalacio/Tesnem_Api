@@ -16,6 +16,10 @@ namespace Tesnem.Api.Data
         {
 
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -24,5 +28,7 @@ namespace Tesnem.Api.Data
         public DbSet<Professor> Professors { get; set; }
         public DbSet<ProgramMajor> Majors { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<PersonalData> PersonalData { get; set; }
+
     }
 }
