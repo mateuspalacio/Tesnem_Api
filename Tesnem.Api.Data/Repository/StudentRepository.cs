@@ -31,6 +31,7 @@ namespace Tesnem.Api.Data.Repository
         }
         public async override Task<Student> Update(Student student)
         {
+            _appDbContext.Entry(student).State = EntityState.Modified;
             Guid id = student.ProgramMajor.Id;
             student.ProgramMajor = _appDbContext.Majors.FirstOrDefault(x => x.Id == student.ProgramMajor.Id);
             if (student.ProgramMajor is null)

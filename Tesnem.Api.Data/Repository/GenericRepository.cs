@@ -42,6 +42,7 @@ namespace Tesnem.Api.Data.Repository
 
         public virtual async Task<T> Update(T entity)
         {
+            _context.Entry(entity).State = EntityState.Modified;
             var resp = _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
             return resp.Entity;
