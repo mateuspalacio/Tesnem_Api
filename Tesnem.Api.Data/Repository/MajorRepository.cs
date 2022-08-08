@@ -35,7 +35,15 @@ namespace Tesnem.Api.Data.Repository
         public override async Task<ProgramMajor> GetById(Guid id)
         {
             var major = await _appDbContext.Majors.FindAsync(id);
+            if (major == null)
+            {
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, id);
+            }
+            
             major.Courses = await _appDbContext.Courses.Where(x => x.Program.Id == id).ToListAsync();
+            
+            if(!major.Courses.Any())
+                major.Courses = new List<Course>();
             foreach (var course in major.Courses)
             {
                 course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
