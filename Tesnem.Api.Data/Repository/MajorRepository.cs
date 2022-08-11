@@ -48,6 +48,11 @@ namespace Tesnem.Api.Data.Repository
             {
                 course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
                 course.Students = await _appDbContext.Students.Where(s => s.CoursesCurrent.Contains(course)).ToListAsync();
+
+                if (!course.Students.Any())
+                    course.Students = new List<Student>();
+                if (!course.Classes.Any())
+                    course.Classes = new List<Class>();
             }
             return major;
         }

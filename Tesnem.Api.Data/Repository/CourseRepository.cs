@@ -27,6 +27,12 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
                 .ToListAsync();
+
+            if (!Courses.Any())
+            {
+                throw new NotFoundException(ExceptionMessages.NoEntitiesFoundMessage, "Course");
+            }
+
             foreach (var course in Courses)
             {
                 course.Classes = await _appDbContext.Classes.Where(x=>x.Course.Id == course.Id).ToListAsync();
