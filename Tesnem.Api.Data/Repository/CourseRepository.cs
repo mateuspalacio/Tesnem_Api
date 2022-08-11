@@ -27,6 +27,12 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
                 .ToListAsync();
+
+            if (!Courses.Any())
+            {
+                throw new NotFoundException(ExceptionMessages.NoEntitiesFoundMessage, "Course");
+            }
+
             foreach (var course in Courses)
             {
                 course.Classes = await _appDbContext.Classes.Where(x=>x.Course.Id == course.Id).ToListAsync();
@@ -48,7 +54,17 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
                 .FirstOrDefaultAsync(x=> x.Id == id);
+
+            if (course == null)
+            {
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
+            }
             
+            if(course.Program == null)
+            {
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, course.Program.Id);
+            }
+
             ProgramMajor Program = await _appDbContext.Majors.FirstOrDefaultAsync(x => x.Id == course.Program.Id);
             course.Program = Program;
             course.Classes = await _appDbContext.Classes.Where(x => x.Course.Id == course.Id).ToListAsync();
@@ -68,6 +84,16 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Classes)
                 .Include(c => c.Requirements)
                 .FirstOrDefaultAsync(x => x.Program.Id == programId);
+
+            if (course == null)
+            {
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundWithMajorMessage, programId);
+            }
+
+            if (course.Program == null)
+            {
+                throw new NotFoundException(ExceptionMessages.MajorNotFoundMessage, programId);
+            }
 
             ProgramMajor Program = await _appDbContext.Majors.FirstOrDefaultAsync(x => x.Id == programId);
             course.Program = Program;

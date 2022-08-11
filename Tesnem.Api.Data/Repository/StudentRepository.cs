@@ -125,6 +125,10 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.Enrollment)
                 .Include(e => e.ProgramMajor)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (student is not null && student.Data is null)
+                throw new NotFoundException(ExceptionMessages.NoDataFoundForPersonMessage, id);
+
             foreach (var classroom in student.Classes)
             {
                 classroom.Tests = await _appDbContext.Tests.Where(x => x.Student.Id == student.Id).ToListAsync();
