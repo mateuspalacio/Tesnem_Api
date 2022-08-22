@@ -344,6 +344,7 @@ namespace Tesnem.UnitTests.Controllers
             var okResult = Assert.IsType<NoContentResult>(functionResult);
             Assert.Equal((int)HttpStatusCode.NoContent, (int)okResult.StatusCode);
         }
+        [Fact]
         public async Task DeleteList_GoodRequest_ReturnsOkResult()
         {
             //Arrange
