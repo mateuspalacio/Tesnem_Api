@@ -132,6 +132,118 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal(testCourseList.First().Classes[0].Tests[0].ClassId, resultValue[0].Classes[0].Tests[0].ClassId);
             Assert.IsType<List<CourseRequirementResponse>>(resultValue[0].Requirements);
         }
+       /* [Fact]
+        public async void MajorIdGet_WhenCalled_ReturnsOkResult()
+        {
+            //Arrange
+            Guid majorId = Guid.NewGuid();
+            SimpleMajor majorSearched = new SimpleMajor
+            {
+                Id = majorId,
+                Name = "MajorSearched"
+            };
+
+            Guid guidForCourseTest = Guid.NewGuid();
+            Guid guidClassTest = Guid.NewGuid();
+            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
+            {
+                        new SimpleStudent
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Student1"
+                        },
+                        new SimpleStudent
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = "Student2"
+                        }
+            };
+            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
+            {
+                new SimpleTest
+                {
+                    CourseId = guidForCourseTest,
+                    ClassId = guidClassTest,
+                    StudentId = simpleStudentsTest[0].Id,
+                    Av = Api.Domain.Models.Enums.AV.AV1,
+                    Grade = 9.2,
+                },
+                new SimpleTest
+                {
+                    CourseId = guidForCourseTest,
+                    ClassId = guidClassTest,
+                    StudentId = simpleStudentsTest[1].Id,
+                    Av = Api.Domain.Models.Enums.AV.AV1,
+                    Grade = 6.7,
+                }
+            };
+            IEnumerable<CourseResponse> testCourseList = new CourseResponse[]
+            {
+                new CourseResponse
+                {
+                    Id = guidForCourseTest,
+                    Name = "Disciplina1",
+                    Major = majorSearched,
+                    Students = simpleStudentsTest,
+                    Classes = new List<SimpleClass>
+                    {
+                        new SimpleClass
+                        {
+                            Id = Guid.NewGuid(),
+                            ProfessorId = Guid.NewGuid(),
+                            CourseId = guidForCourseTest,
+                            Days = Api.Domain.Models.Enums.Days.MoWe,
+                            Students = simpleStudentsTest,
+                            Code = "ClassCode1",
+                            Tests = simpleTestsTest,
+                        },
+                        new SimpleClass
+                        {
+                            Id = Guid.NewGuid(),
+                            ProfessorId = Guid.NewGuid(),
+                            CourseId = guidForCourseTest,
+                            Days = Api.Domain.Models.Enums.Days.TuTh,
+                            Students = simpleStudentsTest,
+                            Code = "ClassCode2",
+                            Tests = new List<SimpleTest>()
+                        }
+                    },
+                    Requirements = new List<CourseRequirementResponse>(),
+                },
+                new CourseResponse
+                {
+                    Id = new Guid(),
+                    Name = "Disciplina2",
+                    Major = majorSearched,
+                    Students = new List<SimpleStudent>(),
+                    Classes = new List<SimpleClass>(),
+                    Requirements = new List<CourseRequirementResponse>()
+                }
+            };
+            _fakeService.Setup(s =>
+                s.GetCourseByProgramId(majorId)).ReturnsAsync(testCourseList);
+
+            // Act
+            var functionResult = await _controller.GetCourseByProgramId(majorSearched.Id);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(functionResult.Result as OkObjectResult);
+            Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
+            var resultValue = Assert.IsType<CourseResponse[]>(okResult.Value);
+            Assert.Equal(testCourseList.Count(), resultValue.Count());
+            Assert.Equal(testCourseList.First().Id, resultValue[0].Id);
+            Assert.Equal(testCourseList.First().Name, resultValue[0].Name);
+            Assert.Equal(testCourseList.First().Major.Id, resultValue[0].Major.Id);
+            Assert.Equal(testCourseList.First().Students.Count, resultValue[0].Students.Count);
+            Assert.Equal(testCourseList.First().Students[0].Id, resultValue[0].Students[0].Id);
+            Assert.Equal(testCourseList.First().Classes.Count, resultValue[0].Classes.Count);
+            Assert.Equal(testCourseList.First().Classes[0].Id, resultValue[0].Classes[0].Id);
+            Assert.Equal(testCourseList.First().Classes[0].Students.Count, resultValue[0].Classes[0].Students.Count);
+            Assert.Equal(testCourseList.First().Classes[0].Students[0].Id, resultValue[0].Classes[0].Students[0].Id);
+            Assert.Equal(testCourseList.First().Classes[0].Tests.Count, resultValue[0].Classes[0].Tests.Count);
+            Assert.Equal(testCourseList.First().Classes[0].Tests[0].ClassId, resultValue[0].Classes[0].Tests[0].ClassId);
+            Assert.IsType<List<CourseRequirementResponse>>(resultValue[0].Requirements);
+        }*/
         [Fact]
         public async void IdGet_Id_Is_Present_ReturnsOkResult()
         {
@@ -327,9 +439,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal(courseResponse.Id, resultValue.Id);
             Assert.Equal(courseResponse.Name, resultValue.Name);
             Assert.Equal(courseResponse.Major.Id, resultValue.Major.Id);
-            Assert.True(!resultValue.Students.Any());
-            Assert.True(!resultValue.Classes.Any());
-            Assert.True(!resultValue.Requirements.Any());
         }
         [Fact]
         public async void Delete_GoodRequest_ReturnsOkResult()

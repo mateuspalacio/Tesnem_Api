@@ -2,7 +2,6 @@
 using Tesnem.Api.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Tesnem.Api.Domain.DTO.ResponseDTO;
 using Tesnem.Api.Domain.DTO.ResponseDTO.SimpleDTO;
 using System.Net;
 using Tesnem.Api.Domain.DTO.RequestDTO;
@@ -287,8 +286,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal(testeClassResponse.CourseId, resultValue.CourseId);
             Assert.Equal(testeClassResponse.Course.id, resultValue.Course.id);
             Assert.Equal(testeClassResponse.Professor.Id, resultValue.Professor.Id);
-            Assert.True(!testeClassResponse.Students.Any());
-            Assert.True(!testeClassResponse.Tests.Any());
             Assert.Equal(testeClassResponse.Days, resultValue.Days);
         }
         [Fact]
