@@ -23,106 +23,12 @@ namespace Tesnem.UnitTests.Controllers
         public async void AllGet_WhenCalled_ReturnsOkResult()
         {
             //Arrange
-            Guid professorTestId = Guid.NewGuid();
-            Guid classTestId = Guid.NewGuid();
-            Guid guidForCourseTest = Guid.NewGuid();
-            Guid guidClassTest = Guid.NewGuid();
-            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
-            {
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student1"
-                        },
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student2"
-                        }
-            };
-            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
-            {
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[0].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 9.2,
-                },
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[1].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 6.7,
-                }
-            };
             IEnumerable<ProfessorResponse> testProfessorList = new ProfessorResponse[]
             {
                 new ProfessorResponse
                 {
-                    Id = professorTestId,
-                    Name = "Professor 1",
-                    Data = new PersonalDataResponse
-                    {
-                        Id = Guid.NewGuid(),
-                        State = "CE",
-                        Email = "teste@email.teste",
-                        AddressStreet = "AV.Ficticia",
-                        AddressHouseNumber = 0123,
-                        AdditionalAddress = "Bairro inventado",
-                        BirthDate = DateTime.Now,
-                        City = "Imaginaria",
-                        CPF = "00000000000",
-                        Phone = "85999991234"
-                    },
-                    TeacherOfClasses = new List<SimpleClass>
-                    {
-                        new SimpleClass
-                        {
-                            Id = classTestId,
-                            CourseId = guidForCourseTest,
-                            ProfessorId =professorTestId,
-                            Code = "12345",
-                            Days = Api.Domain.Models.Enums.Days.TuTh,
-                            Students = simpleStudentsTest,
-                            Tests = simpleTestsTest
-                        },
-                        new SimpleClass
-                        {
-                            Id = Guid.NewGuid(),
-                            CourseId = guidForCourseTest,
-                            ProfessorId=professorTestId,
-                            Code="67890",
-                            Days = Api.Domain.Models.Enums.Days.MoWe,
-                            Students = new List<SimpleStudent>(),
-                            Tests = new List<SimpleTest>()
-                        }
-                    },
-                    TeacherOfCourses = new List<SimpleCourse>
-                    {
-                        new SimpleCourse
-                        {
-                            id = guidForCourseTest,
-                            name = "Course1",
-                            countClasses = 2,
-                            countStudents = 2
-                        },
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Course2",
-                            countStudents=10,
-                            countClasses=1
-                        }
-                    }
-                },
-                new ProfessorResponse
-                {
                     Id = Guid.NewGuid(),
-                    Name = "Professor2",
+                    Name = "Professor1",
                     Data = new PersonalDataResponse(),
                     TeacherOfClasses = new List<SimpleClass>(),
                     TeacherOfCourses = new List<SimpleCourse>()
@@ -130,11 +36,12 @@ namespace Tesnem.UnitTests.Controllers
                 new ProfessorResponse
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Professor3",
+                    Name = "Professor2",
                     Data = new PersonalDataResponse(),
                     TeacherOfClasses = new List<SimpleClass>(),
                     TeacherOfCourses = new List<SimpleCourse>()
-                }
+                },
+                new ProfessorResponse()
             };
             _fakeService.Setup(s =>
                 s.GetAllProfessors()).ReturnsAsync(testProfessorList);
@@ -148,64 +55,19 @@ namespace Tesnem.UnitTests.Controllers
             var resultValue = Assert.IsType<ProfessorResponse[]>(okResult.Value);
             Assert.Equal(testProfessorList.Count(), resultValue.Count());
             Assert.Equal(testProfessorList.First().Id, resultValue[0].Id);
-            Assert.Equal(testProfessorList.First().Name, resultValue[0].Name);
-            Assert.Equal(testProfessorList.First().Data.Id, resultValue[0].Data.Id);
-            Assert.Equal(testProfessorList.First().TeacherOfCourses.Count, resultValue[0].TeacherOfCourses.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfCourses[0].id, resultValue[0].TeacherOfCourses[0].id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses.Count, resultValue[0].TeacherOfClasses.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Id, resultValue[0].TeacherOfClasses[0].Id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Students.Count, resultValue[0].TeacherOfClasses[0].Students.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Students[0].Id, resultValue[0].TeacherOfClasses[0].Students[0].Id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Tests.Count, resultValue[0].TeacherOfClasses[0].Tests.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Tests[0].ClassId, resultValue[0].TeacherOfClasses[0].Tests[0].ClassId);
-
         }
         [Fact]
         public async void CourseIdGet_WhenCalled_ReturnsOkResult()
         {
             //Arrange
             Guid professorTestId = Guid.NewGuid();
-            Guid classTestId = Guid.NewGuid();
             Guid guidForCourseTest = Guid.NewGuid();
-            Guid guidClassTest = Guid.NewGuid();
             SimpleCourse courseTest = new SimpleCourse
             {
                 id = guidForCourseTest,
                 name = "Course1",
                 countClasses = 2,
                 countStudents = 2
-            };
-            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
-            {
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student1"
-                        },
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student2"
-                        }
-            };
-            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
-            {
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[0].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 9.2,
-                },
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[1].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 6.7,
-                }
             };
             IEnumerable<ProfessorResponse> testProfessorList = new ProfessorResponse[]
             {
@@ -226,46 +88,6 @@ namespace Tesnem.UnitTests.Controllers
                         CPF = "00000000000",
                         Phone = "85999991234"
                     },
-                    TeacherOfClasses = new List<SimpleClass>
-                    {
-                        new SimpleClass
-                        {
-                            Id = classTestId,
-                            CourseId = guidForCourseTest,
-                            ProfessorId =professorTestId,
-                            Code = "12345",
-                            Days = Api.Domain.Models.Enums.Days.TuTh,
-                            Students = simpleStudentsTest,
-                            Tests = simpleTestsTest
-                        },
-                        new SimpleClass
-                        {
-                            Id = Guid.NewGuid(),
-                            CourseId = guidForCourseTest,
-                            ProfessorId=professorTestId,
-                            Code="67890",
-                            Days = Api.Domain.Models.Enums.Days.MoWe,
-                            Students = new List<SimpleStudent>(),
-                            Tests = new List<SimpleTest>()
-                        }
-                    },
-                    TeacherOfCourses = new List<SimpleCourse>
-                    {
-                        courseTest,
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Course2",
-                            countStudents=10,
-                            countClasses=1
-                        }
-                    }
-                },
-                new ProfessorResponse
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Professor2",
-                    Data = new PersonalDataResponse(),
                     TeacherOfClasses = new List<SimpleClass>(),
                     TeacherOfCourses = new List<SimpleCourse>
                     {
@@ -275,7 +97,7 @@ namespace Tesnem.UnitTests.Controllers
                 new ProfessorResponse
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Professor3",
+                    Name = "Professor2",
                     Data = new PersonalDataResponse(),
                     TeacherOfClasses = new List<SimpleClass>(),
                     TeacherOfCourses = new List<SimpleCourse>
@@ -296,57 +118,12 @@ namespace Tesnem.UnitTests.Controllers
             var resultValue = Assert.IsType<ProfessorResponse[]>(okResult.Value);
             Assert.Equal(testProfessorList.Count(), resultValue.Count());
             Assert.Equal(testProfessorList.First().Id, resultValue[0].Id);
-            Assert.Equal(testProfessorList.First().Name, resultValue[0].Name);
-            Assert.Equal(testProfessorList.First().Data.Id, resultValue[0].Data.Id);
-            Assert.Equal(testProfessorList.First().TeacherOfCourses.Count, resultValue[0].TeacherOfCourses.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfCourses[0].id, resultValue[0].TeacherOfCourses[0].id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses.Count, resultValue[0].TeacherOfClasses.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Id, resultValue[0].TeacherOfClasses[0].Id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Students.Count, resultValue[0].TeacherOfClasses[0].Students.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Students[0].Id, resultValue[0].TeacherOfClasses[0].Students[0].Id);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Tests.Count, resultValue[0].TeacherOfClasses[0].Tests.Count);
-            Assert.Equal(testProfessorList.First().TeacherOfClasses[0].Tests[0].ClassId, resultValue[0].TeacherOfClasses[0].Tests[0].ClassId);
         }
         [Fact]
         public async void IdGet_Id_Is_Present_ReturnsOkResult()
         {
             //Arrange
             Guid professorTestId = Guid.NewGuid();
-            Guid classTestId = Guid.NewGuid();
-            Guid guidForCourseTest = Guid.NewGuid();
-            Guid guidClassTest = Guid.NewGuid();
-            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
-            {
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student1"
-                        },
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student2"
-                        }
-            };
-            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
-            {
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[0].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 9.2,
-                },
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[1].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 6.7,
-                }
-            };
             ProfessorResponse profTest = new ProfessorResponse
             {
                 Id = professorTestId,
@@ -364,46 +141,8 @@ namespace Tesnem.UnitTests.Controllers
                     CPF = "00000000000",
                     Phone = "85999991234"
                 },
-                TeacherOfClasses = new List<SimpleClass>
-                    {
-                        new SimpleClass
-                        {
-                            Id = classTestId,
-                            CourseId = guidForCourseTest,
-                            ProfessorId =professorTestId,
-                            Code = "12345",
-                            Days = Api.Domain.Models.Enums.Days.TuTh,
-                            Students = simpleStudentsTest,
-                            Tests = simpleTestsTest
-                        },
-                        new SimpleClass
-                        {
-                            Id = Guid.NewGuid(),
-                            CourseId = guidForCourseTest,
-                            ProfessorId=professorTestId,
-                            Code="67890",
-                            Days = Api.Domain.Models.Enums.Days.MoWe,
-                            Students = new List<SimpleStudent>(),
-                            Tests = new List<SimpleTest>()
-                        }
-                    },
-                TeacherOfCourses = new List<SimpleCourse>
-                    {
-                        new SimpleCourse
-                        {
-                            id = guidForCourseTest,
-                            name = "Course1",
-                            countClasses = 2,
-                            countStudents = 2
-                        },
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Course2",
-                            countStudents=10,
-                            countClasses=1
-                        }
-                    }
+                TeacherOfClasses = new List<SimpleClass>(),
+                TeacherOfCourses = new List<SimpleCourse>()
             };
             _fakeService.Setup(s =>
                 s.GetProfessorById(professorTestId)).ReturnsAsync(profTest);
@@ -416,16 +155,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<ProfessorResponse>(okResult.Value);
             Assert.Equal(profTest.Id, resultValue.Id);
-            Assert.Equal(profTest.Name, resultValue.Name);
-            Assert.Equal(profTest.Data.Id, resultValue.Data.Id);
-            Assert.Equal(profTest.TeacherOfCourses.Count, resultValue.TeacherOfCourses.Count);
-            Assert.Equal(profTest.TeacherOfCourses[0].id, resultValue.TeacherOfCourses[0].id);
-            Assert.Equal(profTest.TeacherOfClasses.Count, resultValue.TeacherOfClasses.Count);
-            Assert.Equal(profTest.TeacherOfClasses[0].Id, resultValue.TeacherOfClasses[0].Id);
-            Assert.Equal(profTest.TeacherOfClasses[0].Students.Count, resultValue.TeacherOfClasses[0].Students.Count);
-            Assert.Equal(profTest.TeacherOfClasses[0].Students[0].Id, resultValue.TeacherOfClasses[0].Students[0].Id);
-            Assert.Equal(profTest.TeacherOfClasses[0].Tests.Count, resultValue.TeacherOfClasses[0].Tests.Count);
-            Assert.Equal(profTest.TeacherOfClasses[0].Tests[0].ClassId, resultValue.TeacherOfClasses[0].Tests[0].ClassId);
         }
         [Fact]
         public async void Add_GoodRequest_ReturnsOkResult()

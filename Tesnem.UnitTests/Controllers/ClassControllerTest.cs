@@ -23,62 +23,8 @@ namespace Tesnem.UnitTests.Controllers
         public async void AllGet_GoodRequest_ReturnsOkResult()
         {
             //Arrange
-            Guid guidForCourseTest = Guid.NewGuid();
-            Guid guidClassTest = Guid.NewGuid();
-            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
-            {
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student1"
-                        },
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student2"
-                        }
-            };
-            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
-            {
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[0].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 9.2,
-                },
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[1].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 6.7,
-                }
-            };
             IEnumerable<ClassResponse> testClassesList = new ClassResponse[]
             {
-                new ClassResponse
-                {
-                    Id = guidClassTest,
-                    CourseId = guidForCourseTest,
-                    Course = new SimpleCourse
-                    {
-                        id = guidForCourseTest,
-                        name = "Course1",
-                        countClasses = 2,
-                        countStudents = 7,
-                    },
-                    Days = Api.Domain.Models.Enums.Days.MoWe,
-                    Professor = new SimpleProfessor
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Marcos Aurélio"
-                    },
-                    Students = simpleStudentsTest,
-                    Tests = simpleTestsTest
-                },
                 new ClassResponse
                 {
                     Id = Guid.NewGuid(),
@@ -88,7 +34,9 @@ namespace Tesnem.UnitTests.Controllers
                     Professor = new SimpleProfessor(),
                     Students = new List<SimpleStudent>(),
                     Tests = new List<SimpleTest>()
-                }
+                },
+                new ClassResponse(),
+                new ClassResponse(),
             };
             _fakeService.Setup(s =>
                 s.GetAllClasses()).ReturnsAsync(testClassesList);
@@ -101,73 +49,88 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<ClassResponse[]>(okResult.Value);
             Assert.Equal(testClassesList.Count(), resultValue.Count());
-            Assert.Equal(testClassesList.First().Id, resultValue[0].Id);
-            Assert.Equal(testClassesList.First().Days, resultValue[0].Days);
-            Assert.Equal(testClassesList.First().CourseId, resultValue[0].CourseId);
-            Assert.Equal(testClassesList.First().Course.id, resultValue[0].Course.id);
-            Assert.Equal(testClassesList.First().Professor.Id, resultValue[0].Professor.Id);
-            Assert.Equal(testClassesList.First().Students.Count(), resultValue[0].Students.Count());
-            Assert.Equal(testClassesList.First().Students.First().Id, resultValue[0].Students.First().Id);
-            Assert.Equal(testClassesList.First().Tests.Count(), resultValue[0].Tests.Count());
-            Assert.Equal(testClassesList.First().Tests.First().ClassId, resultValue[0].Tests.First().ClassId);
+        }
+        [Fact]
+        public async void MajorGet_GoodRequest_ReturnsOkResult()
+        {
+            //Arrange
+            Guid guidMajorTest = Guid.NewGuid();
+            IEnumerable<ClassResponse> testClassesList = new ClassResponse[]
+            {
+                new ClassResponse
+                {
+                    Id = Guid.NewGuid(),
+                    CourseId = Guid.NewGuid(),
+                    Days = Api.Domain.Models.Enums.Days.MoWeFr,
+                    Professor = new SimpleProfessor(),
+                    Students = new List<SimpleStudent>(),
+                    Tests = new List<SimpleTest>()
+                },
+                new ClassResponse(),
+                new ClassResponse(),
+            };
+            _fakeService.Setup(s =>
+                s.GetClassByMajorId(guidMajorTest)).ReturnsAsync(testClassesList);
+
+            // Act
+            var functionResult = await _controller.GetClassByMajor(guidMajorTest);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(functionResult as OkObjectResult);
+            Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
+            var resultValue = Assert.IsType<ClassResponse[]>(okResult.Value);
+            Assert.Equal(testClassesList.Count(), resultValue.Count());
+        }
+        [Fact]
+        public async void CourseGet_GoodRequest_ReturnsOkResult()
+        {
+            //Arrange
+            Guid guidCourseTest = Guid.NewGuid();
+            IEnumerable<ClassResponse> testClassesList = new ClassResponse[]
+            {
+                new ClassResponse
+                {
+                    Id = Guid.NewGuid(),
+                    Course = new SimpleCourse(),
+                    CourseId = guidCourseTest,
+                    Days = Api.Domain.Models.Enums.Days.MoWeFr,
+                    Professor = new SimpleProfessor(),
+                    Students = new List<SimpleStudent>(),
+                    Tests = new List<SimpleTest>()
+                },
+                new ClassResponse(),
+                new ClassResponse(),
+            };
+            _fakeService.Setup(s =>
+                s.GetClassByCourseId(guidCourseTest)).ReturnsAsync(testClassesList);
+
+            // Act
+            var functionResult = await _controller.GetClassByCourse(guidCourseTest);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(functionResult as OkObjectResult);
+            Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
+            var resultValue = Assert.IsType<ClassResponse[]>(okResult.Value);
+            Assert.Equal(testClassesList.Count(), resultValue.Count());
         }
         [Fact]
         public async Task IdGet_Id_Is_Present_ReturnsOkResultAsync()
         {
             //Arrange
-            Guid guidForCourseTest = Guid.NewGuid();
             Guid guidClassTest = Guid.NewGuid();
-            List<SimpleStudent> simpleStudentsTest = new List<SimpleStudent>
-            {
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student1"
-                        },
-                        new SimpleStudent
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = "Student2"
-                        }
-            };
-            List<SimpleTest> simpleTestsTest = new List<SimpleTest>
-            {
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[0].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 9.2,
-                },
-                new SimpleTest
-                {
-                    CourseId = guidForCourseTest,
-                    ClassId = guidClassTest,
-                    StudentId = simpleStudentsTest[1].Id,
-                    Av = Api.Domain.Models.Enums.AV.AV1,
-                    Grade = 6.7,
-                }
-            };
             ClassResponse testeClass = new ClassResponse
             {
                 Id = guidClassTest,
-                CourseId = guidForCourseTest,
-                Course = new SimpleCourse
-                {
-                    id = guidForCourseTest,
-                    name = "Course1",
-                    countClasses = 2,
-                    countStudents = 7,
-                },
+                CourseId = Guid.NewGuid(),
+                Course = new SimpleCourse(),
                 Days = Api.Domain.Models.Enums.Days.MoWe,
                 Professor = new SimpleProfessor
                 {
                     Id = Guid.NewGuid(),
                     Name = "Marcos Aurélio"
                 },
-                Students = simpleStudentsTest,
-                Tests = simpleTestsTest
+                Students = new List<SimpleStudent>(),
+                Tests = new List<SimpleTest>()
             };
             _fakeService.Setup(s =>
             s.GetClassById(guidClassTest)).ReturnsAsync(testeClass);
@@ -180,14 +143,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<ClassResponse>(okResult.Value);
             Assert.Equal(testeClass.Id, resultValue.Id);
-            Assert.Equal(testeClass.CourseId, resultValue.CourseId);
-            Assert.Equal(testeClass.Course.id, resultValue.Course.id);
-            Assert.Equal(testeClass.Days, resultValue.Days);
-            Assert.Equal(testeClass.Professor.Id, resultValue.Professor.Id);
-            Assert.Equal(testeClass.Students.Count(), resultValue.Students.Count());
-            Assert.Equal(testeClass.Students.First().Id, resultValue.Students.First().Id);
-            Assert.Equal(testeClass.Tests.Count(), resultValue.Tests.Count());
-            Assert.Equal(testeClass.Tests.First().ClassId, resultValue.Tests.First().ClassId);
         }
         [Fact]
         public async void Add_GoodRequest_ReturnsOkResult()

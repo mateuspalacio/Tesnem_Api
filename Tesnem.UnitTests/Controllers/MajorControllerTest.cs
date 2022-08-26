@@ -31,56 +31,10 @@ namespace Tesnem.UnitTests.Controllers
                     Id = Guid.NewGuid(),
                     Name = "Ciência da Computação",
                     Type = Api.Domain.Models.Enums.ProgramType.Graduate,
-                    Courses = new List<SimpleCourse>
-                    {
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Disciplina 1",
-                            countClasses = 1,
-                            countStudents = 20,
-                        },
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Disciplina 2",
-                            countClasses = 2,
-                            countStudents = 35,
-                        }
-                    }
+                    Courses = new List<SimpleCourse>()
                 },
-                new MajorResponse
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Engenharia da Computação",
-                    Type = Api.Domain.Models.Enums.ProgramType.Graduate,
-                    Courses = new List<SimpleCourse>
-                    {
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Disciplina 3",
-                            countClasses = 4,
-                            countStudents = 37,
-                        }
-                    }
-                },
-                new MajorResponse
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Petroleo e Gas",
-                    Type = Api.Domain.Models.Enums.ProgramType.Graduate,
-                    Courses = new List<SimpleCourse>
-                    {
-                        new SimpleCourse
-                        {
-                            id = Guid.NewGuid(),
-                            name = "Disciplina 4",
-                            countClasses = 1,
-                            countStudents = 12,
-                        }
-                    }
-                }
+                new MajorResponse(),
+                new MajorResponse()
             };
             _fakeService.Setup(s =>
                 s.GetAllMajors()).ReturnsAsync(testMajorsList);
@@ -94,10 +48,6 @@ namespace Tesnem.UnitTests.Controllers
             var resultValue = Assert.IsType<MajorResponse[]>(okResult.Value);
             Assert.Equal(testMajorsList.Count(), resultValue.Count());
             Assert.Equal(testMajorsList.First().Id, resultValue[0].Id);
-            Assert.Equal(testMajorsList.First().Name, resultValue[0].Name);
-            Assert.Equal(testMajorsList.First().Type, resultValue[0].Type);
-            Assert.Equal(testMajorsList.First().Courses.Count, resultValue[0].Courses.Count);
-            Assert.Equal(testMajorsList.First().Courses[0].id, resultValue[0].Courses[0].id);
         }
         [Fact]
         public async void IdGet_Id_Is_Present_ReturnsOkResult()
@@ -138,10 +88,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<MajorResponse>(okResult.Value);
             Assert.Equal(getMajorTest.Id, resultValue.Id);
-            Assert.Equal(getMajorTest.Name, resultValue.Name);
-            Assert.Equal(getMajorTest.Type, resultValue.Type);
-            Assert.Equal(getMajorTest.Courses.Count, resultValue.Courses.Count);
-            Assert.Equal(getMajorTest.Courses[0].id, resultValue.Courses[0].id);
         }
         [Fact]
         public async void Add_GoodRequest_ReturnsOkResult()
@@ -170,9 +116,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<MajorResponse>(okResult.Value);
             Assert.Equal(addMajorResponse.Id, resultValue.Id);
-            Assert.Equal(addMajorResponse.Name, resultValue.Name);
-            Assert.Equal(addMajorResponse.Type, resultValue.Type);
-            Assert.True(!resultValue.Courses.Any());
         }
         [Fact]
         public async void Put_GoodRequest_ReturnsOkResult()
@@ -211,10 +154,6 @@ namespace Tesnem.UnitTests.Controllers
             Assert.Equal((int)HttpStatusCode.OK, (int)okResult.StatusCode);
             var resultValue = Assert.IsType<MajorResponse>(okResult.Value);
             Assert.Equal(updatedMajorResponse.Id, resultValue.Id);
-            Assert.Equal(updatedMajorResponse.Name, resultValue.Name);
-            Assert.Equal(updatedMajorResponse.Type, resultValue.Type);
-            Assert.Equal(updatedMajorResponse.Courses.Count, resultValue.Courses.Count);
-            Assert.Equal(updatedMajorResponse.Courses[0].id, resultValue.Courses[0].id);
         }
         [Fact]
         public async void Delete_GoodRequest_ReturnsOkResult()

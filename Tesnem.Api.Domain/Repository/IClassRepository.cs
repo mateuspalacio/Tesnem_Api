@@ -10,7 +10,7 @@ namespace Tesnem.Api.Domain.Repository
     public interface IClassRepository : IGenericRepository<Class>
     {
         Task<IEnumerable<Class>> GetAllClasses();
-        Task<Class> GetByCourseId(Guid courseId);
-        Task<Class> GetByMajorId(Guid majorId);
+        Task<IEnumerable<Class>> GetByCourseId(Guid courseId);
+        Task<IEnumerable<Class>> GetByMajorId(Guid majorId);
     }
 }
