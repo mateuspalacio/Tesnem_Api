@@ -24,8 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tesnem.Api.Domain\Tesnem.Api.Domain.csproj" />
     <ProjectReference Include="..\Tesnem.Api\Tesnem.Api.csproj" />
+    <ProjectReference Include="..\Tesnem.Api.Data\Tesnem.Api.Data.csproj" />
+    <ProjectReference Include="..\Tesnem.Api.Domain\Tesnem.Api.Domain.csproj" />
+    <ProjectReference Include="..\Tesnem.Api.Services\Tesnem.Api.Services.csproj" />
   </ItemGroup>
 
 </Project>
