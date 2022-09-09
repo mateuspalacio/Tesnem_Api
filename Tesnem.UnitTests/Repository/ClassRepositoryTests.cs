@@ -62,31 +62,37 @@ namespace Tesnem.UnitTests.Repository
         public async Task Should_Get_Many_Class_By_Course()
         {
             // Arrange
-            var _class = new Mock<Class>();
+            IEnumerable<Class> classes = new Class[]
+            {
+                new Mock<Class>().Object
+            };
             var courseId = Guid.NewGuid();
-            _rep.Setup(x => x.GetByCourseId(It.IsAny<Guid>())).Returns(Task.FromResult(_class.Object));
+            _rep.Setup(x => x.GetByCourseId(It.IsAny<Guid>())).Returns(Task.FromResult(classes));
 
             // Act
             var resp = await _rep.Object.GetByCourseId(courseId);
 
             // Assert
             Assert.NotNull(resp);
-            Assert.Equal(_class.Object, resp);
+            Assert.Equal(classes, resp);
         }
         [Fact]
         public async Task Should_Get_Many_Class_By_Major()
         {
             // Arrange
-            var _class = new Mock<Class>();
+            IEnumerable<Class> classes = new Class[]
+            {
+                new Mock<Class>().Object
+            };
             var majorId = Guid.NewGuid();
-            _rep.Setup(x => x.GetByMajorId(It.IsAny<Guid>())).Returns(Task.FromResult(_class.Object));
+            _rep.Setup(x => x.GetByMajorId(It.IsAny<Guid>())).Returns(Task.FromResult(classes));
 
             // Act
             var resp = await _rep.Object.GetByMajorId(majorId);
 
             // Assert
             Assert.NotNull(resp);
-            Assert.Equal(_class.Object, resp);
+            Assert.Equal(classes, resp);
         }
 
         [Fact]
