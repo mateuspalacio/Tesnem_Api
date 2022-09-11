@@ -17,7 +17,7 @@ namespace Tesnem.Api.Domain.Services
         Task<ClassResponse> GetClassById(Guid id);
         Task<IEnumerable<ClassResponse>> GetAllClasses();
         Task<IEnumerable<Guid>> DeleteMultipleClasses(List<Guid> classesIds);
-        Task<ClassResponse> GetClassByCourseId(Guid id);
-        Task<ClassResponse> GetClassByMajorId(Guid id);
+        Task<IEnumerable<ClassResponse>> GetClassByCourseId(Guid id);
+        Task<IEnumerable<ClassResponse>> GetClassByMajorId(Guid id);
     }
 }

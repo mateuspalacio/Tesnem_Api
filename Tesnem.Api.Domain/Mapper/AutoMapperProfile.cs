@@ -21,6 +21,11 @@ namespace Tesnem.Api.Domain.Mapper
             // Request mapping
             CreateMap<Enrollment, EnrollmentRequest>().ReverseMap();
             CreateMap<Course, CourseRequest>().ReverseMap();
+            CreateMap<CourseRequirement, CourseRequirementsRequest>().ForMember(
+                x => x.Requirements,
+                opt => opt.MapFrom(x => x.Courses)
+                )
+                .ReverseMap();
             CreateMap<List<Guid>, AddClassesRequest>().ReverseMap();
             CreateMap<Student, StudentRequest>()
                 .ForMember(

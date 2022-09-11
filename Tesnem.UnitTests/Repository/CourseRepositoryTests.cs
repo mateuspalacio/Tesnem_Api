@@ -63,16 +63,19 @@ namespace Tesnem.UnitTests.Repository
         public async Task Should_Get_Many_Courses_By_Major()
         {
             // Arrange
-            var course = new Mock<Course>();
-            var courseId = Guid.NewGuid();
-            _rep.Setup(x => x.GetByProgramId(It.IsAny<Guid>())).Returns(Task.FromResult(course.Object));
+            IEnumerable<Course> courses = new Course[]
+            {
+                new Mock<Course>().Object
+            };
+            var majorId = Guid.NewGuid();
+            _rep.Setup(x => x.GetByProgramId(It.IsAny<Guid>())).Returns(Task.FromResult(courses));
 
             // Act
-            var resp = await _rep.Object.GetByProgramId(courseId);
+            var resp = await _rep.Object.GetByProgramId(majorId);
 
             // Assert
             Assert.NotNull(resp);
-            Assert.Equal(course.Object, resp);
+            Assert.Equal(courses, resp);
         }
 
         [Fact]

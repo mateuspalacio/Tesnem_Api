@@ -72,12 +72,12 @@ namespace Tesnem.Api.Services.Services
             return _mapper.Map<CourseResponse>(resp);
         }
 
-        public async Task<CourseResponse> GetCourseByProgramId(Guid id)
+        public async Task<IEnumerable<CourseResponse>> GetCourseByProgramId(Guid id)
         {
             var resp = await _rep.Courses.GetByProgramId(id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
-            return _mapper.Map<CourseResponse>(resp);
+            return _mapper.Map<IEnumerable<CourseResponse>>(resp);
         }
 
         public async Task<CourseResponse> UpdateCourse(Guid id, CourseRequest course)

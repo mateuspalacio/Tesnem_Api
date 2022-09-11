@@ -63,52 +63,56 @@ namespace Tesnem.Api.Data.Repository
 
             return classroom;
         }
-        async public Task<Class> GetByCourseId(Guid courseId)
+        async public Task<IEnumerable<Class>> GetByCourseId(Guid courseId)
         {
-            var classroom = await _appDbContext.Classes
+            var classrooms = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefaultAsync(x => x.Course.Id == courseId);
+                .Where(x => x.Course.Id == courseId)
+                .ToListAsync();
 
-            if(classroom == null)
+            if(classrooms == null)
             {
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundForCourseMessage, courseId);
             }
-
-            if(classroom.Professor is null)
+            foreach (var classAux in classrooms)
             {
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, courseId);
+                if (classAux.Professor is null)
+                {
+                    throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, courseId);
+                }
             }
-
-            return classroom;
+            return classrooms;
         }
-        async public Task<Class> GetByMajorId(Guid majorId)
+        async public Task<IEnumerable<Class>> GetByMajorId(Guid majorId)
         {
-            var classroom = await _appDbContext.Classes
+            var classrooms = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefaultAsync(x => x.Course.Program.Id == majorId);
+                .Where(x => x.Course.Program.Id == majorId)
+                .ToListAsync();
 
-            if (classroom == null)
+            if (classrooms == null)
             {
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundForMajorMessage, majorId);
             }
-
-            if (classroom.Course == null)
+            foreach (var classAux in classrooms)
             {
-                throw new NotFoundException(ExceptionMessages.CourseNotFoundWithMajorMessage, majorId);
-            }
+                if (classAux.Course == null)
+                {
+                    throw new NotFoundException(ExceptionMessages.CourseNotFoundWithMajorMessage, majorId);
+                }
 
-            if (classroom.Professor is null)
-            {
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, majorId);
+                if (classAux.Professor is null)
+                {
+                    throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, majorId);
+                }
             }
-
-            return classroom;
+            return classrooms;
         }
 
     }
