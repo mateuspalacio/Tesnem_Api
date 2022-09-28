@@ -28,6 +28,12 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
                 .ToListAsync();
+
+            if (!classes.Any())
+            {
+                throw new NotFoundException(ExceptionMessages.NoEntitiesFoundMessage, "Classes");
+            }
+
             return classes;
         }
 
@@ -40,31 +46,73 @@ namespace Tesnem.Api.Data.Repository
                 .Include(c => c.Tests)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+            if (classroom == null)
+            {
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
+            }
+
+            if (classroom.Course == null)
+            {
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundWithClassMessage, id);
+            }
+
+            if (classroom.Professor is null)
+            {
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, classroom.Course.Id);
+            }
+
             return classroom;
         }
-        async public Task<Class> GetByCourseId(Guid courseId)
+        async public Task<IEnumerable<Class>> GetByCourseId(Guid courseId)
         {
-            var classroom = await _appDbContext.Classes
+            var classrooms = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefaultAsync(x => x.Course.Id == courseId);
+                .Where(x => x.Course.Id == courseId)
+                .ToListAsync();
 
-
-            return classroom;
+            if(classrooms == null)
+            {
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundForCourseMessage, courseId);
+            }
+            foreach (var classAux in classrooms)
+            {
+                if (classAux.Professor is null)
+                {
+                    throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, courseId);
+                }
+            }
+            return classrooms;
         }
-        async public Task<Class> GetByMajorId(Guid majorId)
+        async public Task<IEnumerable<Class>> GetByMajorId(Guid majorId)
         {
-            var classroom = await _appDbContext.Classes
+            var classrooms = await _appDbContext.Classes
                 .Include(c => c.Course)
                 .Include(c => c.Professor)
                 .Include(c => c.Students)
                 .Include(c => c.Tests)
-                .FirstOrDefaultAsync(x => x.Course.Id == majorId);
+                .Where(x => x.Course.Program.Id == majorId)
+                .ToListAsync();
 
+            if (classrooms == null)
+            {
+                throw new NotFoundException(ExceptionMessages.ClassNotFoundForMajorMessage, majorId);
+            }
+            foreach (var classAux in classrooms)
+            {
+                if (classAux.Course == null)
+                {
+                    throw new NotFoundException(ExceptionMessages.CourseNotFoundWithMajorMessage, majorId);
+                }
 
-            return classroom;
+                if (classAux.Professor is null)
+                {
+                    throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, majorId);
+                }
+            }
+            return classrooms;
         }
 
     }

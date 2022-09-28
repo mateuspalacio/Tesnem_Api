@@ -38,4 +38,6 @@
     <ProjectReference Include="..\Tesnem.Api.Services\Tesnem.Api.Services.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>

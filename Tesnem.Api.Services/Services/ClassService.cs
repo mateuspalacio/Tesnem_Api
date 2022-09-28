@@ -74,12 +74,12 @@ namespace Tesnem.Api.Services.Services
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
         }
-        public async Task<ClassResponse> GetClassByCourseId(Guid courseId)
+        public async Task<IEnumerable<ClassResponse>> GetClassByCourseId(Guid courseId)
         {
             var resp = await _rep.Classes.GetByCourseId(courseId);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, courseId);
-            return _mapper.Map<ClassResponse>(resp);
+            return _mapper.Map<IEnumerable<ClassResponse>>(resp);
         }
 
         public async Task<ClassResponse> UpdateClass(Guid id, ClassRequest classroom)
@@ -87,23 +87,23 @@ namespace Tesnem.Api.Services.Services
             var clas = _mapper.Map<Class>(classroom);
             clas.Id = id;
             clas.Professor = await _rep.Professors.GetById(classroom.ProfessorId);
-            if(string.IsNullOrEmpty(clas.Professor.Name))
-                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, clas.Professor.Id);
+            if(clas.Professor is null)
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, classroom.ProfessorId);
             clas.Course = await _rep.Courses.GetById(classroom.CourseId);
-            if (string.IsNullOrEmpty(clas.Course.Name))
-                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, clas.Course.Id);
+            if (clas.Course is null)
+                throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, classroom.CourseId);
             var resp = await _rep.Classes.Update(clas);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.CourseNotFoundMessage, id);
             return _mapper.Map<ClassResponse>(resp);
         }
 
-        public async Task<ClassResponse> GetClassByMajorId(Guid Id)
+        public async Task<IEnumerable<ClassResponse>> GetClassByMajorId(Guid Id)
         {
             var resp = await _rep.Classes.GetByMajorId(Id);
             if (resp is null)
                 throw new NotFoundException(ExceptionMessages.ClassNotFoundMessage, Id);
-            return _mapper.Map<ClassResponse>(resp);
+            return _mapper.Map<IEnumerable<ClassResponse>>(resp);
         }
         private static string MakeCodeForClass(Guid CourseId)
         {

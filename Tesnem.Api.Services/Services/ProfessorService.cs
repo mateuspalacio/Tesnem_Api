@@ -48,7 +48,7 @@ namespace Tesnem.Api.Services.Services
         {
             var resp = await _rep.Professors.GetById(id);
             if (resp is null)
-                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, " - No items on database.");
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundMessage, id);
             await _rep.Professors.Delete(resp);
         }
 
@@ -64,7 +64,7 @@ namespace Tesnem.Api.Services.Services
         {
             var resp = await _rep.Professors.GetAllProfessorsByCourse(courseId);
             if (resp is null)
-                throw new NotFoundException(ExceptionMessages.NoEntitiesOnDb, courseId);
+                throw new NotFoundException(ExceptionMessages.PersonNotFoundOnMajorOrCourseMessage, courseId);
             return _mapper.Map<IEnumerable<ProfessorResponse>>(resp);
         }
 

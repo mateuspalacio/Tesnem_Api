@@ -40,7 +40,7 @@ namespace Tesnem.Api.Data.Repository
                 .Where(x => x.TeacherOfCourses.Any(x => x.Id == courseId)).ToListAsync();
             return prof;
         }
-        async override public Task<Professor> GetById(Guid id)
+        public async override Task<Professor> GetById(Guid id)
         {
             var prof = await _appDbContext.Professors
                 .Include(e => e.TeacherOfClasses)
@@ -48,6 +48,10 @@ namespace Tesnem.Api.Data.Repository
                 .Include(e => e.Data)
                 .Include(e => e.Enrollment)
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (prof is not null && prof.Data is null)
+                throw new NotFoundException(ExceptionMessages.NoDataFoundForPersonMessage, id);
+
             return prof;
         }
     }
