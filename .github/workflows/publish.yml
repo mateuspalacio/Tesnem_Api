@@ -22,17 +22,14 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      #- name: App Settings Variable Substitution
-      #  uses: microsoft/variable-substitution@v1
-      #  with:
-      #    files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
-      #  env:
-      #      ConnectionStrings.TesnemContext: ${{ secrets.DB_CONTEXT }}
-      #      ConnectionStrings.IdentityContext: ${{ secrets.IDENTITY_CONTEXT }}
-      - name: Deploy
+      - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
         with:
-          files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
+          files: 'Tesnem.Api/appsettings.json'
+        env:
+            ConnectionStrings.TesnemContext: ${{ secrets.DB_CONTEXT }}
+            ConnectionStrings.IdentityContext: ${{ secrets.IDENTITY_CONTEXT }}
+      - name: Deploy
         run: |
             cd Tesnem.Api/
             dotnet tool install -g Amazon.ElasticBeanstalk.Tools
@@ -47,5 +44,3 @@ jobs:
             aws_eb_appname: ${{secrets.AWS_EB_APPNAME}}
             aws_eb_envname: ${{secrets.AWS_EB_ENVNAME}}
             aws_solution_stack: ${{secrets.SOLUTION_STACK}}
-            ConnectionStrings.TesnemContext: ${{ secrets.DB_CONTEXT }}
-            ConnectionStrings.IdentityContext: ${{ secrets.IDENTITY_CONTEXT }}
