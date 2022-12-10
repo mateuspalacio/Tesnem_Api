@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Data", "Tesnem.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.Api.Services", "Tesnem.Api.Services\Tesnem.Api.Services.csproj", "{1DF4C324-43A1-43AC-BD68-C701FE27BE8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesnem.UnitTests", "Tesnem.UnitTests\Tesnem.UnitTests.csproj", "{51002D59-90C3-4DA5-AE8C-52C018E8AE77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesnem.UnitTests", "Tesnem.UnitTests\Tesnem.UnitTests.csproj", "{51002D59-90C3-4DA5-AE8C-52C018E8AE77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
